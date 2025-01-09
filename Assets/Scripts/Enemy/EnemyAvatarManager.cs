@@ -6,11 +6,22 @@ public class EnemyAvatarManager : MonoBehaviour
 {
     [SerializeField] private AvatarSet[] avatars;
 
-    public void ActivateAvatar(int index)
+    public AvatarModel activeModel;
+
+    public AvatarModel ActivateAvatar(int index)
     {
         foreach(AvatarSet avatar in avatars) avatar.Hide();
+        if(avatars.Length<=index)
+        {
+            Debug.LogError("Wrong enemy avatar index");
+            return null;
+        }
+        else
+        {
 
-        avatars[index]?.Show();
+            avatars[index].Show();
+            return avatars[index].model;
+        }
 
     }
 
@@ -19,6 +30,7 @@ public class EnemyAvatarManager : MonoBehaviour
     {
         public GameObject avatar;
         public GameObject camera;
+        public AvatarModel model;
 
         public void Hide()
         {

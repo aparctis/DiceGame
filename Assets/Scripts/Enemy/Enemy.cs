@@ -10,7 +10,8 @@ public class Enemy : PlayAble
     public void SetEnemyData(EnemyData enemyData)
     {
         //avatar
-        _enemyAvatarManager.ActivateAvatar(enemyData.avatarModelIndex);
+        avatarModel = _enemyAvatarManager.ActivateAvatar(enemyData.avatarModelIndex);
+
         //health
         _healthController.SetHealth(enemyData.currentHealth, enemyData.maxHealth);
 
