@@ -22,6 +22,20 @@ public class DiceAction
     public int hitCount => _hitCount;
     public int hitValue => _hitValue;
 
+    public DiceAction(ActionType actionType, int actionValue)
+    {
+        this._type = actionType;
+        this._value = actionValue;
+        this._hitValue = 0;
+    }
+
+    public DiceAction(ActionType actionType, int actionValue, int hitValue)
+    {
+        this._type = actionType;
+        this._value = actionValue;
+        this._hitValue = hitValue;
+    }
+
     public DiceAction(ActionType actionType, int actionValue, int actionHitCount, int hitValue)
     {
         this._type = actionType;

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,12 +14,14 @@ public class HealthUI : MonoBehaviour
     [SerializeField] private Color backOnPoison = Color.green;
     [SerializeField] private Color backOnHill = Color.cyan;
 
+    [SerializeField] private Color textStandartColor = Color.white;
+
     [SerializeField] private Ease ease = Ease.InOutCubic;
 
     /// <summary>
     /// Seconds to fill from 0 to 1.0
     /// </summary>
-    [SerializeField] private float fillSpeed = 2.0f;
+    [SerializeField] private float fillSpeed = 0.25f;
 
     private Sequence sequence;
 
@@ -39,11 +39,14 @@ public class HealthUI : MonoBehaviour
         float time = moveTime(newAmount);
 
         backImage.color = backOnDamage;
+        text.color = backOnDamage;
+        text.text = (currentInt + "/" + maxInt);
 
         sequence?.Kill();
         sequence = DOTween.Sequence();
         sequence.Append(frontImage.DOFillAmount(newAmount, time / 2).SetEase(ease)).
-            Join(backImage.DOFillAmount(newAmount, time).SetEase(ease));
+            Join(backImage.DOFillAmount(newAmount, time).SetEase(ease)).
+            Join(text.DOColor(textStandartColor, time).SetEase(ease));
     }
 
     public void ShowPoison(int currentInt, int maxInt)
@@ -52,11 +55,15 @@ public class HealthUI : MonoBehaviour
         float time = moveTime(newAmount);
 
         backImage.color = backOnPoison;
+        text.color = backOnPoison;
+        text.text = (currentInt + "/" + maxInt);
 
         sequence?.Kill();
         sequence = DOTween.Sequence();
         sequence.Append(frontImage.DOFillAmount(newAmount, time / 2).SetEase(ease)).
-            Join(backImage.DOFillAmount(newAmount, time).SetEase(ease));
+            Join(backImage.DOFillAmount(newAmount, time).SetEase(ease)).
+            Join(text.DOColor(textStandartColor, time).SetEase(ease));
+
     }
 
     public void ShowHill(int currentInt, int maxInt)
@@ -64,18 +71,21 @@ public class HealthUI : MonoBehaviour
         float newAmount = (float)currentInt / (float)maxInt;
         float time = moveTime(newAmount);
 
-        backImage.color = backOnDamage;
+        backImage.color = backOnHill;
+        text.color = backOnHill;
+        text.text = (currentInt + "/" + maxInt);
 
         sequence?.Kill();
         sequence = DOTween.Sequence();
         sequence.Append(frontImage.DOFillAmount(newAmount, time).SetEase(ease)).
-            Join(backImage.DOFillAmount(newAmount, time / 2).SetEase(ease));
+            Join(backImage.DOFillAmount(newAmount, time / 2).SetEase(ease)).
+            Join(text.DOColor(textStandartColor, time).SetEase(ease));
     }
 
     private float moveTime(float newAmount)
     {
         float currentAmount = frontImage.fillAmount;
         float distance = Mathf.Abs(currentAmount - newAmount);
-        return distance*fillSpeed;
+        return distance/fillSpeed;
     }
 }
