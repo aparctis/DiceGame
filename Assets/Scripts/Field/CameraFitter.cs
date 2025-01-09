@@ -17,17 +17,17 @@ public class CameraFitter : MonoBehaviour
         float standartProportion = standartX / standartY;
 
         float size = camera.orthographicSize;
-        Debug.Log("standartFOV " + size);
+        //Debug.Log("standartFOV " + size);
 
         float newX = Screen.width;
         float newY = Screen.height;
         float newProportion = newX / newY;
         float multiple = newProportion / standartProportion;
-        Debug.Log("multiple " + multiple);
+        //Debug.Log("multiple " + multiple);
 
 
         float newSize = size / multiple;
-        Debug.Log("newFOV " + newSize);
+        //Debug.Log("newFOV " + newSize);
 
 
         camera.orthographicSize = Mathf.Lerp(size, newSize, fitToWidth);

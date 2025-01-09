@@ -1,0 +1,78 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1828347056813920426
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6873424987767924803}
+  - component: {fileID: 7437325163374882968}
+  - component: {fileID: -3682071108152733367}
+  m_Layer: 0
+  m_Name: ProjectContext
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6873424987767924803
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1828347056813920426}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7437325163374882968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1828347056813920426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4e6589720da476459dc6dd71624b071, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scriptableObjectInstallers: []
+  _monoInstallers:
+  - {fileID: -3682071108152733367}
+  _installerPrefabs: []
+  _parentNewObjectsUnderContext: 1
+  _editorReflectionBakingCoverageMode: 0
+  _buildsReflectionBakingCoverageMode: 0
+  _settings:
+    _ensureDeterministicDestructionOrderOnApplicationQuit: 0
+    _displayWarningWhenResolvingDuringInstall: 1
+    _validationRootResolveMethod: 0
+    _validationErrorResponse: 0
+    _signalSettings:
+      _defaultSyncMode: 0
+      _missingHandlerDefaultResponse: 2
+      _requireStrictUnsubscribe: 0
+      _defaultAsyncTickPriority: 1
+--- !u!114 &-3682071108152733367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1828347056813920426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b6ae01e49f2a9546916b6ba0c884e4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  saveLoadSystemPrefab: {fileID: 4941566906809495834, guid: 73b78f2567ef9f34693c29f4fdd48101, type: 3}
+  levelLoaderPrefab: {fileID: 3615147816118341438, guid: de17e39ea145ce549a496271d9edfcd0, type: 3}
