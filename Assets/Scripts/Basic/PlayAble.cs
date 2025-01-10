@@ -38,9 +38,9 @@ public class PlayAble : MonoBehaviour, IActionReceiver
         return positionConverter.GetWorldPosition(_avatarRect, 2.0f);
     }
 
-    public void ApplyPoison(UnityAction onDone)
+    public void ApplyPoison()
     {
-        healthController.AplyPoisonDamage(onDone);
+        healthController.AplyPoisonDamage();
     }
 
     public virtual void RollDice(UnityAction onDone)

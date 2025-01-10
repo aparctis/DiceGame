@@ -3,54 +3,63 @@ using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
 using Zenject;
+using System;
+using System.IO;
 
 public class Test : MonoBehaviour
 {
-    public Dice dice;
-    public DiceActionSet actionSet;
+    [SerializeField] private TestScriptableData sd_input;
+    [SerializeField] private TestScriptableData sd_out;
 
-    public RectTransform rectTransform;
-    public Transform boardTrans;
-    public Transform middle;
-    public float moveTime = 1.0f;
-    [Inject] PositionConverter positionConverter;
+    public TestData data_out;
+    [Inject]
+    SaveLoadSystem sls;
+    public GameData game_data;
 
-    [Button]
-    private void Decore()
+    string savePas;
+
+    private void Awake()
     {
-        dice.SetDiceActions(actionSet);
+        savePas = Path.Combine(Application.persistentDataPath, "testData_DELETE_IT.json");
     }
     [Button]
-    private void SetPositions()
+    private void LoadPlayerData()
     {
-        Vector3 wait = positionConverter.GetWorldPosition(rectTransform, 2);
-        Vector3 board = boardTrans.position;
-        dice.SetPositions(wait, board, middle.position);
-    }
-    [Button]
+        game_data=(sls.getGameData());
 
-    private void MoveToBoard()
-    {
-        dice.MoveToBoard(moveTime, ()=>OnDone());
-    }
-    [Button]
-
-    private void Roll()
-    {
-        dice.RollDice(() => OnDone());
-    }
-    [Button]
-
-    private void ReturnDice()
-    {
-        dice.ReturnDice(moveTime, () => OnDone());
-    }
-    [Button]
-    private void UseAction()
-    {
-        dice.UseAction(OnDone);
     }
 
-    private void OnDone() => Debug.Log("ON DONE");
-  
+    [Button]
+    private void SaveInput()
+    {
+        SaveDataFrom(sd_input.data);
+    }
+
+    [Button]
+    private void LoadFromJSon()
+    {
+        string jsonData = File.ReadAllText(savePas);
+        data_out = JsonUtility.FromJson<TestData>(jsonData);
+
+        sd_out.data = data_out;
+    }
+
+
+    private void SaveDataFrom (TestData data)
+    {
+        string jsonData = JsonUtility.ToJson(data, true);
+        File.WriteAllText(savePas, jsonData);
+    }
+
 }
+
+[Serializable]
+public class TestData
+{
+    public DiceActionSet set;
+}
+
+
+
+
+

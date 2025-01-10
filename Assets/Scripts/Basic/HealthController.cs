@@ -44,7 +44,7 @@ public class HealthController : MonoBehaviour
         if(poisonDamage>maxPoisonDamage) poisonDamage = maxPoisonDamage;
     }
 
-    public void AplyPoisonDamage(UnityAction ifNotDead)
+    public void AplyPoisonDamage()
     {
         if (poisonDamage > 0)
         {
@@ -52,13 +52,12 @@ public class HealthController : MonoBehaviour
             if (currentHealth <= 0)
             {
                 currentHealth = 0;
+                onDeath.Invoke();
+                return;
             }
 
             healthUI.ShowPoison(currentHealth, maxHealth);
-            if (currentHealth <= 0)
-            {
-                ifNotDead?.Invoke();
-            }
+
         }
 
     }
@@ -66,13 +65,12 @@ public class HealthController : MonoBehaviour
     public void Hill(int hill)
     {
         poisonDamage-= hill;
+        if(poisonDamage<0)poisonDamage = 0;
 
         if (currentHealth < maxHealth)
         {
             currentHealth += hill;
             if(currentHealth>maxHealth) currentHealth = maxHealth;
-            healthUI.ShowPoison(currentHealth, maxHealth);
-
             healthUI.ShowHill(currentHealth, maxHealth);
 
         }

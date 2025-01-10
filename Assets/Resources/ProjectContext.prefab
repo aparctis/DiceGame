@@ -76,3 +76,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   saveLoadSystemPrefab: {fileID: 4941566906809495834, guid: 73b78f2567ef9f34693c29f4fdd48101, type: 3}
   levelLoaderPrefab: {fileID: 3615147816118341438, guid: de17e39ea145ce549a496271d9edfcd0, type: 3}
+  defaultGameSet: {fileID: 11400000, guid: 59810fcec7897774386192bced98919f, type: 2}

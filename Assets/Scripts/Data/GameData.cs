@@ -1,13 +1,10 @@
-using System.Collections.Generic;
-
+using UnityEngine;
 [System.Serializable]
 public class GameData
 {
-    public PlayerData savedPlayerData;
+    public PlayerData playerData;
+    public EnemyData[] enemyDatas;
     public int lastLevelIndex;
-    public int lastEnemyIndex;
-
-    public List<EnemyData> enemys;
 }
 
 [System.Serializable]
@@ -19,6 +16,9 @@ public class PlayerData
 
     //Armor
     public int currentArmor;
+
+    //poison
+    public int poison;
 
     //Dices
     public DiceActionSet hand_1;
@@ -35,7 +35,6 @@ public class EnemyData
     //Health
     public int maxHealth;
     public int currentHealth;
-    public int defoultHealth = 20;
 
     //Armor
     public int currentArmor;
@@ -45,5 +44,6 @@ public class EnemyData
 
     //Dices
     public DiceActionSet diceSet;
-
 }
+
+

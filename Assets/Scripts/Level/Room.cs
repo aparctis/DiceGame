@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using Zenject;
 
 public class Room : MonoBehaviour
@@ -30,12 +28,15 @@ public class Room : MonoBehaviour
 
     private void OnEnable()
     {
+        Debug.Log("Enable)");
         player.onDeath += OnLose;
         enemy.onDeath += OnWin;
         levelLoader.onLoadingOver += PlayLoaded;
     }
     private void OnDisable()
     {
+        Debug.Log("OnDisable)");
+
         player.onDeath -= OnLose;
         enemy.onDeath -= OnWin;
         levelLoader.onLoadingOver -= PlayLoaded;
@@ -44,15 +45,25 @@ public class Room : MonoBehaviour
 
     private void LoadData()
     {
-        player.SetPlayerData(saveLoadSystem.gameData.savedPlayerData);
-        enemy.SetEnemyData(saveLoadSystem.gameData.enemys[saveLoadSystem.gameData.lastLevelIndex]);
-        currentRaundIndex = saveLoadSystem.gameData.lastLevelIndex;
+        Debug.Log("LoadData");
+
+        if (saveLoadSystem == null) Debug.Log("SLS is NULL!");
+        if(saveLoadSystem.getGameData()==null) Debug.Log("DATA is NULL!");
+
+        GameData data = saveLoadSystem.getGameData();
+        Debug.Log(data.playerData.currentHealth);
+
+
+        player.SetPlayerData(data.playerData);
+        enemy.SetEnemyData(data.enemyDatas[data.lastLevelIndex]);
         maxRaundIndex = saveLoadSystem.levelsCount;
     }
 
 
     private IEnumerator RaundRutine()
     {
+        Debug.Log("RaundRutine");
+
         LoadData();
         yield return null;
 
@@ -60,14 +71,15 @@ public class Room : MonoBehaviour
 
         while (true)
         {
-            //poison
-            isNextMove = false;
-            enemy.ApplyPoison(()=>isNextMove=true);
-            while(!isNextMove) yield return new WaitForSeconds(timeTick);
+            Debug.Log("poison");
 
-            isNextMove = false;
-            player.ApplyPoison(() => isNextMove = true);
-            while (!isNextMove) yield return new WaitForSeconds(timeTick);
+            //poison
+            enemy.ApplyPoison();
+            yield return new WaitForSeconds(delay);
+            player.ApplyPoison();
+            yield return new WaitForSeconds(delay);
+
+            Debug.Log("move");
 
             //enemy move
             isNextMove = false;
@@ -110,9 +122,8 @@ public class Room : MonoBehaviour
     //for Buttons
     private void PlayLoaded()
     {
-        LoadData();
+        Debug.Log("PlayLoaded");
         StartCoroutine(RaundRutine());
-
     }
 
 
@@ -125,8 +136,6 @@ public class Room : MonoBehaviour
     public void ButtonNext()
     {
         currentRaundIndex++;
-        saveLoadSystem.SaveLevel(currentRaundIndex, saveLoadSystem.gameData.lastEnemyIndex+1);
-
         levelLoader.FakeLoad(1.05f);
     }
 

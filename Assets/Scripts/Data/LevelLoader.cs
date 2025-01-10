@@ -50,7 +50,6 @@ public class LevelLoader : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
         loadingScreen.Hide();
         yield return new WaitForSeconds(loadingScreen.time);
-        onLoadingOver?.Invoke();
 
 
     }
