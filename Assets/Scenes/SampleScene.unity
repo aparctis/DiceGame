@@ -365,6 +365,17 @@ Transform:
   - {fileID: 1504607720}
   m_Father: {fileID: 401894000}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &59764139 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3925560157509839233, guid: 4e18312c95991c343ab40fc7d7bee8c2, type: 3}
+  m_PrefabInstance: {fileID: 233111543}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2aa62f0f00b6810419d63d4b90f68bde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &63628172
 GameObject:
   m_ObjectHideFlags: 0
@@ -1783,13 +1794,25 @@ PrefabInstance:
       propertyPath: puck.allActions.Array.size
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 3003528826403019224, guid: 4e18312c95991c343ab40fc7d7bee8c2, type: 3}
+      propertyPath: delete._actions.Array.data[0]._value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3003528826403019224, guid: 4e18312c95991c343ab40fc7d7bee8c2, type: 3}
+      propertyPath: delete._actions.Array.data[1]._value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3003528826403019224, guid: 4e18312c95991c343ab40fc7d7bee8c2, type: 3}
+      propertyPath: delete._actions.Array.data[2]._value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9154533698661034306, guid: 4e18312c95991c343ab40fc7d7bee8c2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9154533698661034306, guid: 4e18312c95991c343ab40fc7d7bee8c2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 2.32
       objectReference: {fileID: 0}
     - target: {fileID: 9154533698661034306, guid: 4e18312c95991c343ab40fc7d7bee8c2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2234,10 +2257,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fe045f83800c684aac97e81b1d5429c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthUI: {fileID: 550253801}
-  armorUI: {fileID: 864714295}
-  actionObject: {fileID: 0}
-  newArmor: 1
+  dice: {fileID: 59764139}
+  actionSet:
+    _actions:
+    - _type: 0
+      _value: 5
+      _secondValue: 0
+    - _type: 1
+      _value: 1
+      _secondValue: 0
+    - _type: 2
+      _value: 1
+      _secondValue: 0
+    - _type: 3
+      _value: 0
+      _secondValue: -1
+    - _type: 4
+      _value: 12
+      _secondValue: 1
+    - _type: 5
+      _value: 1
+      _secondValue: 1
+  rectTransform: {fileID: 1681610608}
+  boardTrans: {fileID: 2118910154}
+  moveTime: 1
 --- !u!4 &335832525
 Transform:
   m_ObjectHideFlags: 0

@@ -159,7 +159,6 @@ GameObject:
   - component: {fileID: 1374140136555641005}
   - component: {fileID: 3925560157509839233}
   - component: {fileID: 3470051798680656641}
-  - component: {fileID: 3003528826403019224}
   m_Layer: 0
   m_Name: Dice
   m_TagString: Untagged
@@ -299,6 +298,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   diceMover: {fileID: 3470051798680656641}
+  sides:
+  - {fileID: 6728696178056848162}
+  - {fileID: 5550797404083976055}
+  - {fileID: 8190018652413796758}
+  - {fileID: 6736312219043960929}
+  - {fileID: 1968176880223808599}
+  - {fileID: 2281336049498337574}
 --- !u!114 &3470051798680656641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -316,25 +322,6 @@ MonoBehaviour:
   kinematicMoveEase: 10
   throwForce: 5
   torqueForce: 10
---- !u!114 &3003528826403019224
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1654810386806278286}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aeff345de7655d446b8af0e0d3d424e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sides:
-  - {fileID: 6728696178056848162}
-  - {fileID: 5550797404083976055}
-  - {fileID: 8190018652413796758}
-  - {fileID: 6736312219043960929}
-  - {fileID: 1968176880223808599}
-  - {fileID: 2281336049498337574}
 --- !u!1 &1801643719339974350
 GameObject:
   m_ObjectHideFlags: 0

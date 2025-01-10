@@ -65,8 +65,8 @@ public class DiceMover : MonoBehaviour
 
     public void MoveDice(Vector3 targetPosition, Vector3 targetRotation, float moveTime, UnityAction onMoveDone)
     {
-        collider.isTrigger = false;
-        rb.isKinematic = false;
+        collider.isTrigger = true;
+        rb.isKinematic = true;
         sequence?.Kill();
         sequence = DOTween.Sequence();
         sequence.Append(transform.DOMove(targetPosition, moveTime).SetEase(kinematicMoveEase))

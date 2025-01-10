@@ -92,9 +92,16 @@ public class ActionDecorPool : MonoBehaviour, IInitializable
     }
 
 
-    public GameObject getDigitObject(int index)
+    public GameObject getDigitObject(int value)
     {
+        int index = value - 1;
         GameObject _object = null;
+
+        if (index < 0 ||index> valuePrefabs.Count|| index> valuePoolList.Count)
+        {
+            Debug.LogError("Wong index: " + index);
+        }
+
         GameObject _prefab = valuePrefabs[index];
         List<GameObject> _pool = valuePoolList[index];
 
@@ -112,8 +119,9 @@ public class ActionDecorPool : MonoBehaviour, IInitializable
         return _object;
     }
 
-    public void ReturnDigitObject(GameObject _object, int index)
+    public void ReturnDigitObject(GameObject _object, int value)
     {
+        int index = value - 1;
         List<GameObject> _pool = valuePoolList[index];
         _object.SetActive(false);
         _pool.Add(_object);

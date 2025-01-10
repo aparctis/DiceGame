@@ -16,11 +16,11 @@ public class DiceAction
 
     [SerializeField] private int _value;
 
-    [SerializeField]
-    private int _secondValue;
+    [SerializeField] private int _secondValue;
 
-    public int value => _value;
-    public int secondValue => _secondValue;
+    public int value => Mathf.Clamp(_value, 0, 10);
+
+    public int secondValue=> Mathf.Clamp(_secondValue, 0, 10);
 
     public DiceAction(ActionType actionType, int actionValue)
     {

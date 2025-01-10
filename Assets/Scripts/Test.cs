@@ -2,68 +2,49 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NaughtyAttributes;
+using Zenject;
 
 public class Test : MonoBehaviour
 {
-    public HealthUI healthUI;
-    public ArmorUI armorUI;
+    public Dice dice;
+    public DiceActionSet actionSet;
 
-    int max;
-    int current;
-    public GameObject actionObject;
+    public RectTransform rectTransform;
+    public Transform boardTrans;
+    public float moveTime = 1.0f;
+    [Inject] PositionConverter positionConverter;
 
-    public int newArmor = 1;
     [Button]
-    private void LoockUp()
+    private void Decore()
     {
-        actionObject.transform.LookAt(Vector3.up);
-    }
-
-    private void Start()
-    {
-        current = 20;
-        max = 20;
-        healthUI.SetStartHealth(20, 20);
-        SetArmor();
-    }
-
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.D)) Damage();
-        if (Input.GetKeyDown(KeyCode.P)) Poison();
-        if (Input.GetKeyDown(KeyCode.H)) Hill();
-
-        if (Input.GetKeyDown(KeyCode.Space)) ChangeArmor();
-
+        dice.SetDiceActions(actionSet);
     }
     [Button]
-    private void Damage()
+    private void SetPositions()
     {
-        current--;
-        healthUI.ShowDamage(current, max);
+        Vector3 wait = positionConverter.GetWorldPosition(rectTransform, 2);
+        Vector3 board = boardTrans.position;
+        dice.SetPositions(wait, board);
+    }
+    [Button]
+
+    private void MoveToBoard()
+    {
+        dice.MoveToBoard(moveTime, ()=>OnDone());
+    }
+    [Button]
+
+    private void Roll()
+    {
+        dice.RollDice(() => OnDone());
+    }
+    [Button]
+
+    private void ReturnDice()
+    {
+        dice.ReturnDice(moveTime, () => OnDone());
     }
 
-    private void Poison()
-    {
-        current--;
-        healthUI.ShowPoison(current, max);
-    }
-
-    private void Hill()
-    {
-        current++;
-        healthUI.ShowHill(current, max);
-    }
-
-
-    private void SetArmor()
-    {
-        armorUI.SetArmor(0);
-    }
-
-    private void ChangeArmor()
-    {
-        armorUI.ShowArmorChange(newArmor);
-    }
+    private void OnDone() => Debug.Log("ON DONE");
+  
 }

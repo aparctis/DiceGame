@@ -14,22 +14,13 @@ public class Side : MonoBehaviour
         _actionDecorPool = actionDecorPool;
     }
 
-    private int _sideIndex;
-    public int sideIndex => _sideIndex;
-
     [SerializeField] private Vector3 _corectAngle;
     public Vector3 corectAngle => _corectAngle;
 
 
-
     [SerializeField] private Transform _actionHolder;
-    public Transform actionHolder => _actionHolder;
-
     [SerializeField] private Transform _valueHolder;
-    public Transform valueHolder => _valueHolder;
-
     [SerializeField] private Transform _secondValueHolder;
-    public Transform secondValueHolder => _secondValueHolder;
 
 
     private GameObject decoreObject;
@@ -39,7 +30,7 @@ public class Side : MonoBehaviour
     private DiceAction _action = null;
     public DiceAction action => _action;
 
-    public void SetAction(DiceAction action)
+    public void SetAction(DiceAction newAction)
     {
         if(_action!=null)
         {
@@ -51,19 +42,44 @@ public class Side : MonoBehaviour
             if(decoreObject!= null)
             {
                 _actionDecorPool.ReturnActionObject(decoreObject, lastType);
+                decoreObject = null;
             }
 
             //return value
             if (decoreFirstValue != null)
             {
-                _actionDecorPool.ReturnDigitObject(decoreFirstValue, lastFirstValue - 1);
+                _actionDecorPool.ReturnDigitObject(decoreFirstValue, lastFirstValue);
+                decoreFirstValue = null;
             }
 
             //return second value
             if (decoreSecondValue != null)
             {
-                _actionDecorPool.ReturnDigitObject(decoreSecondValue, lastSecondValue - 1);
+                _actionDecorPool.ReturnDigitObject(decoreSecondValue, lastSecondValue);
+                decoreSecondValue = null;
             }
+        }
+
+        //decore
+        decoreObject = _actionDecorPool.getActionObject(newAction.type);
+        decoreObject.transform.parent = _actionHolder;
+        decoreObject.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+        decoreObject.SetActive(true);
+
+        if (newAction.value > 0)
+        {
+            decoreFirstValue = _actionDecorPool.getDigitObject(newAction.value);
+            decoreFirstValue.transform.parent = _valueHolder;
+            decoreFirstValue.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+            decoreFirstValue.SetActive(true);
+        }
+
+        if (newAction.secondValue > 0)
+        {
+            decoreSecondValue = _actionDecorPool.getDigitObject(newAction.secondValue);
+            decoreSecondValue.transform.parent = _secondValueHolder;
+            decoreSecondValue.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+            decoreSecondValue.SetActive(true);
         }
 
     }
