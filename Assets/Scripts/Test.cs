@@ -11,6 +11,7 @@ public class Test : MonoBehaviour
 
     public RectTransform rectTransform;
     public Transform boardTrans;
+    public Transform middle;
     public float moveTime = 1.0f;
     [Inject] PositionConverter positionConverter;
 
@@ -24,7 +25,7 @@ public class Test : MonoBehaviour
     {
         Vector3 wait = positionConverter.GetWorldPosition(rectTransform, 2);
         Vector3 board = boardTrans.position;
-        dice.SetPositions(wait, board);
+        dice.SetPositions(wait, board, middle.position);
     }
     [Button]
 
@@ -43,6 +44,11 @@ public class Test : MonoBehaviour
     private void ReturnDice()
     {
         dice.ReturnDice(moveTime, () => OnDone());
+    }
+    [Button]
+    private void UseAction()
+    {
+        dice.UseAction(OnDone);
     }
 
     private void OnDone() => Debug.Log("ON DONE");

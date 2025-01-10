@@ -21,7 +21,8 @@ public class PlayerData
     public DiceActionSet hand_2;
     public DiceActionSet armor;
     public DiceActionSet amulet;
-    public DiceActionSet pet;    
+    public DiceActionSet pet;
+    
 }
 
 [System.Serializable]

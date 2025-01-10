@@ -82,6 +82,8 @@ public class Side : MonoBehaviour
             decoreSecondValue.SetActive(true);
         }
 
+        _action = newAction;
+
     }
 
 

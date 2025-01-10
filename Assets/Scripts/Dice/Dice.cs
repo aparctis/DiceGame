@@ -1,19 +1,31 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.IO.Pipes;
 using UnityEngine;
 using UnityEngine.Events;
+using Zenject;
 
 public class Dice : MonoBehaviour
 {
     [SerializeField] private DiceMover diceMover;
     [SerializeField] private Side[] sides;
 
-    
+    [SerializeField] private PlayAble ally;
+    [SerializeField] private PlayAble oponent;
+
+    [SerializeField] private bool isEnemyDice;
+
     private Vector3 waitPosition;
     private Vector3 boardPosition;
+    private Vector3 middlePosition;
 
     private Side upperSide;
+
+    private ActionObjectPool actionObjectPool;
+
+    [Inject]
+    private void Construct(ActionObjectPool pool)
+    {
+        actionObjectPool = pool;
+    }
 
     public void SetDiceActions(DiceActionSet newActionSet)
     {
@@ -24,7 +36,7 @@ public class Dice : MonoBehaviour
         }
     }
 
-    public void SetPositions(Vector3 newWaitposition, Vector3 newBoardPosition)
+    public void SetPositions(Vector3 newWaitposition, Vector3 newBoardPosition, Vector3 newMiddlePosition)
     {
         waitPosition = newWaitposition;
         boardPosition = newBoardPosition;
@@ -50,6 +62,52 @@ public class Dice : MonoBehaviour
         DefineUpperSide();
         diceMover.MoveDice(waitPosition, upperSide.corectAngle, moveTime, onMoveDone);
     }
+
+
+    public void UseAction(UnityAction onDone)
+    {
+        DiceAction action = upperSide.action;
+        switch (action.type)
+        {
+            case ActionType.damage:
+                UseSingleAction(onDone, ActionObjectType.atack, action.value);
+                break;
+            case ActionType.poison:
+                UseSingleAction(onDone, ActionObjectType.poison, action.value);
+                break;
+            case ActionType.hill:
+                UseSingleAction(onDone, ActionObjectType.health, action.value);
+                break;
+            case ActionType.armor:
+                UseSingleAction(onDone, ActionObjectType.armor, action.value);
+                break;
+            case ActionType.damageAndPoison:
+                UseSingleAction(()=>UseSingleAction(onDone, ActionObjectType.poison, action.secondValue), ActionObjectType.atack, action.value);
+                break;
+            case ActionType.damageAndArmor:
+                UseSingleAction(() => UseSingleAction(onDone, ActionObjectType.armor, action.secondValue), ActionObjectType.atack, action.value);
+                break;
+        }
+    }
+
+    private void UseSingleAction(UnityAction onDone, ActionObjectType type, int value)
+    {
+        IActionReceiver receiver;
+        if (type == ActionObjectType.atack || type == ActionObjectType.poison)
+        {
+            receiver = oponent;
+        }
+        else receiver = ally;
+
+        Vector3 targetPosition = receiver.recieverPosition();
+        ActionObject actionObject = actionObjectPool.getActionObject(type);
+        actionObject.transform.position = upperSide.transform.position;
+
+        actionObject.ApplyAction(value, middlePosition, receiver, targetPosition, isEnemyDice, onDone);
+    }
+
+
+
 
     private void DefineUpperSide()
     {

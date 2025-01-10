@@ -9,10 +9,12 @@ public class ActionObject : MonoBehaviour
 
     [SerializeField]private ActionObjectType _type;
     public ActionObjectType type => _type;
-
-    private float moveSpeed = 10.0f;
+    
     private float scaleTime = 1.0f;
-    private Ease showScaleEase = Ease.InOutBounce;
+    private Ease showScaleEase = Ease.InOutCubic;
+
+    private float flyTime = 1.0f;
+    private Ease flyEase = Ease.InBack;
 
 
     private Sequence sequence;
@@ -20,48 +22,33 @@ public class ActionObject : MonoBehaviour
     public void SetPool(ActionObjectPool pool)=> _pool = pool;
 
 
-    public void Show()
-    {
-        sequence?.Kill();
-        sequence = DOTween.Sequence();
-        sequence.Append(transform.DOScale(1.0f, scaleTime).SetEase(showScaleEase));
-    }
 
-    public void Show(float scale)
+    public void ApplyAction(int value, Vector3 middlePoint, IActionReceiver reciever, Vector3 targetPosition, bool isEnemyDice, UnityAction onDelyvered)
     {
-        sequence?.Kill();
-        sequence = DOTween.Sequence();
-        sequence.Append(transform.DOScale(scale, scaleTime).SetEase(showScaleEase));
-    }
 
-
-    public void MoveToTarget(Vector3 target, Ease moveEase, UnityAction onMoveDone)
-    {
-        float moveTime = getMoveTime(target);
 
         sequence?.Kill();
         sequence = DOTween.Sequence();
-        sequence.Append(transform.DOMove(target, moveTime).SetEase(moveEase)).
-            OnComplete(()=>GoToPool(()=>onMoveDone.Invoke()));
+
+        sequence.Append(transform.DOMove(middlePoint, scaleTime).SetEase(Ease.InOutCubic)).
+            Join(transform.DOScale(1, scaleTime)).SetEase(showScaleEase);
+
+        if (isEnemyDice) sequence.Join(transform.DORotate(new Vector3(0, 180, 0), scaleTime));
+
+        sequence.Append(transform.DOMove(targetPosition, flyTime)).SetEase(flyEase);
+
+        void OnComplete()
+        {
+            reciever.ReceiveAction(_type, value);
+            onDelyvered?.Invoke();
+            _pool.ReturnToPool(this);
+        }
     }
 
-
-    public void GoToPool(UnityAction doBeforeBack)
-    {
-        doBeforeBack.Invoke();
-        _pool.ReturnToPool(this);
-
-    }
     public void GoToPool()
     {
         _pool.ReturnToPool(this);
 
     }
 
-
-    private float getMoveTime (Vector3 target)
-    {
-        float distance = Vector3.Distance(transform.position, target);
-        return distance / moveSpeed;
-    }
 }

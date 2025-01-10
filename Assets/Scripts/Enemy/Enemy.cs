@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Enemy : PlayAble
 {
@@ -19,5 +20,16 @@ public class Enemy : PlayAble
         armorController.SetArmor(enemyData.currentArmor);
 
         //diceset
+        _enemyDiceController.DecoreDice(enemyData.diceSet);
+    }
+
+    public override void RollDice(UnityAction onDone)
+    {
+        _enemyDiceController.RollDice(onDone);
+    }
+
+    public override void UseActions(UnityAction onDone)
+    {
+        _enemyDiceController.UseActions(onDone);
     }
 }

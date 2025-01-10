@@ -42,7 +42,7 @@ public class HealthController : MonoBehaviour
         if(poisonDamage>maxPoisonDamage) poisonDamage = maxPoisonDamage;
     }
 
-    public void AplyPoisonDamage()
+    public void AplyPoisonDamage(UnityAction ifNotDead)
     {
         if (poisonDamage > 0)
         {
@@ -50,10 +50,13 @@ public class HealthController : MonoBehaviour
             if (currentHealth <= 0)
             {
                 currentHealth = 0;
-                onDeath.Invoke();
             }
 
             healthUI.ShowPoison(currentHealth, maxHealth);
+            if (currentHealth <= 0)
+            {
+                ifNotDead?.Invoke();
+            }
         }
 
     }
