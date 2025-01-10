@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using NaughtyAttributes;
 
 public class Test : MonoBehaviour
 {
@@ -9,9 +10,14 @@ public class Test : MonoBehaviour
 
     int max;
     int current;
-
+    public GameObject actionObject;
 
     public int newArmor = 1;
+    [Button]
+    private void LoockUp()
+    {
+        actionObject.transform.LookAt(Vector3.up);
+    }
 
     private void Start()
     {
@@ -31,7 +37,7 @@ public class Test : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space)) ChangeArmor();
 
     }
-
+    [Button]
     private void Damage()
     {
         current--;

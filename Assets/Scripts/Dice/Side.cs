@@ -1,24 +1,72 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using Zenject;
 
 public class Side : MonoBehaviour
 {
+    private ActionDecorPool _actionDecorPool;
+
+    [Inject]
+    private void Construct(ActionDecorPool actionDecorPool)
+    {
+        _actionDecorPool = actionDecorPool;
+    }
+
     private int _sideIndex;
     public int sideIndex => _sideIndex;
 
     [SerializeField] private Vector3 _corectAngle;
     public Vector3 corectAngle => _corectAngle;
 
+
+
     [SerializeField] private Transform _actionHolder;
     public Transform actionHolder => _actionHolder;
-
 
     [SerializeField] private Transform _valueHolder;
     public Transform valueHolder => _valueHolder;
 
-    public void SetIndex(int index)
+    [SerializeField] private Transform _secondValueHolder;
+    public Transform secondValueHolder => _secondValueHolder;
+
+
+    private GameObject decoreObject;
+    private GameObject decoreFirstValue;
+    private GameObject decoreSecondValue;
+
+    private DiceAction _action = null;
+    public DiceAction action => _action;
+
+    public void SetAction(DiceAction action)
     {
-        _sideIndex = index;
+        if(_action!=null)
+        {
+            ActionType lastType = _action.type;
+            int lastFirstValue = _action.value;
+            int lastSecondValue = _action.secondValue;
+
+            //return decore
+            if(decoreObject!= null)
+            {
+                _actionDecorPool.ReturnActionObject(decoreObject, lastType);
+            }
+
+            //return value
+            if (decoreFirstValue != null)
+            {
+                _actionDecorPool.ReturnDigitObject(decoreFirstValue, lastFirstValue - 1);
+            }
+
+            //return second value
+            if (decoreSecondValue != null)
+            {
+                _actionDecorPool.ReturnDigitObject(decoreSecondValue, lastSecondValue - 1);
+            }
+        }
+
     }
+
+
 }

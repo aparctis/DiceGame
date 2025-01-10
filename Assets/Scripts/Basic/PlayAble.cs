@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayAble : MonoBehaviour, IActionReceiver
 {
-    [SerializeField] internal HealthController _healthController;
+    [SerializeField] internal HealthController healthController;
+    [SerializeField] internal ArmorController armorController;
 
     internal AvatarModel avatarModel;
 

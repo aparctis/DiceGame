@@ -9,7 +9,6 @@ public class LevelLoader : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("Loading screen awake");
         LoadGameScene();
     }
 

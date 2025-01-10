@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2972352941819370734
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5785783949424451288}
+  - component: {fileID: 3038328723963312679}
+  m_Layer: 0
+  m_Name: DecorePool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5785783949424451288
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2972352941819370734}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.33100003, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3038328723963312679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2972352941819370734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c93cd84eb1b66804a8a14d0e3d22757b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  valuePrefabs:
+  - {fileID: 8272268548017295129, guid: 35f271c73afd88a4f9cdb54d7b7a366c, type: 3}
+  - {fileID: 2337486497105757968, guid: af6cebf1cf9225841a1bef2502cc5290, type: 3}
+  - {fileID: 2308539335321408707, guid: 1bfde26d308cb1f48bef446f39f0d414, type: 3}
+  - {fileID: 2471392363086943545, guid: 191653ad10c635c4c9183c8a52f37541, type: 3}
+  - {fileID: 6948325211327274821, guid: 1bbd2bebfbf745e49ad1b25fa082ebc7, type: 3}
+  - {fileID: 6300599499833104966, guid: aeef857e85d0fe941bb435b2751fa176, type: 3}
+  - {fileID: 893280422901993205, guid: af9ff60a1a05e47409d32e3d0673a9b0, type: 3}
+  - {fileID: 4415459211950510520, guid: 39837801cd389a44f85b9d1b816ab27b, type: 3}
+  - {fileID: 231161144838972965, guid: 97d555e306fe782428988edf887e423f, type: 3}
+  - {fileID: 6326454555432572588, guid: 10f5a69090e18994ab2101b8784eda5a, type: 3}
+  valuesInPoolCount: 1
+  decorPrefabs:
+  - {fileID: 3281684630701087129, guid: b53a8b592fc62c0448035b1796051d27, type: 3}
+  - {fileID: 1261189800160537714, guid: 7cc9c4dd8b1252e4e85a78e7c60d6e96, type: 3}
+  - {fileID: 4282604639938971168, guid: 06de16e26165a174db97440809180b35, type: 3}
+  - {fileID: 52542657821088235, guid: 8ceccb271b73fa14695895d99521a587, type: 3}
+  - {fileID: 5421830283208558526, guid: 30324812467f44a40bc1408911749f9b, type: 3}
+  - {fileID: 3057145920634636946, guid: f7046d84f1aaaa24ab5b8799f92cd7a3, type: 3}
+  decoreInPoolCount: 1

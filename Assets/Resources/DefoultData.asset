@@ -20,102 +20,102 @@ MonoBehaviour:
       _actions:
       - _type: 0
         _value: 2
-        _hitValue: 0
+        _secondValue: 0
       - _type: 0
         _value: 2
-        _hitValue: 0
+        _secondValue: 0
       - _type: 0
         _value: 1
-        _hitValue: 0
+        _secondValue: 0
       - _type: 0
         _value: 1
-        _hitValue: 0
+        _secondValue: 0
       - _type: 1
         _value: 1
-        _hitValue: 0
+        _secondValue: 0
       - _type: 1
         _value: 0
-        _hitValue: 0
+        _secondValue: 0
     hand_2:
       _actions:
       - _type: 0
         _value: 2
-        _hitValue: 0
+        _secondValue: 0
       - _type: 0
         _value: 2
-        _hitValue: 0
+        _secondValue: 0
       - _type: 5
         _value: 1
-        _hitValue: 1
+        _secondValue: 1
       - _type: 1
         _value: 1
-        _hitValue: 0
+        _secondValue: 0
       - _type: 1
         _value: 0
-        _hitValue: 0
+        _secondValue: 0
       - _type: 4
         _value: 1
-        _hitValue: 0
+        _secondValue: 1
     armor:
       _actions:
       - _type: 1
         _value: 2
-        _hitValue: 0
+        _secondValue: 0
       - _type: 1
         _value: 2
-        _hitValue: 0
+        _secondValue: 0
       - _type: 1
         _value: 2
-        _hitValue: 0
+        _secondValue: 0
       - _type: 1
         _value: 1
-        _hitValue: 0
+        _secondValue: 0
       - _type: 0
         _value: 1
-        _hitValue: 0
+        _secondValue: 0
       - _type: 0
         _value: 1
-        _hitValue: 0
+        _secondValue: 0
     amulet:
       _actions:
       - _type: 2
         _value: 3
-        _hitValue: 0
+        _secondValue: 0
       - _type: 2
         _value: 3
-        _hitValue: 0
+        _secondValue: 0
       - _type: 2
         _value: 2
-        _hitValue: 0
+        _secondValue: 0
       - _type: 2
         _value: 2
-        _hitValue: 0
+        _secondValue: 0
       - _type: 0
         _value: 2
-        _hitValue: 0
+        _secondValue: 0
       - _type: 5
         _value: 1
-        _hitValue: 1
+        _secondValue: 1
     pet:
       _actions:
       - _type: 0
         _value: 2
-        _hitValue: 0
+        _secondValue: 0
       - _type: 0
         _value: 2
-        _hitValue: 0
+        _secondValue: 0
       - _type: 1
         _value: 2
-        _hitValue: 0
+        _secondValue: 0
       - _type: 1
         _value: 2
-        _hitValue: 0
+        _secondValue: 0
       - _type: 2
         _value: 3
-        _hitValue: 0
+        _secondValue: 0
       - _type: 5
         _value: 1
-        _hitValue: 1
+        _secondValue: 1
   enemyData:
   - maxHealth: 7
     currentHealth: 7
@@ -126,22 +126,22 @@ MonoBehaviour:
       _actions:
       - _type: 0
         _value: 4
-        _hitValue: 0
+        _secondValue: 0
       - _type: 0
         _value: 4
-        _hitValue: 0
+        _secondValue: 0
       - _type: 0
         _value: 3
-        _hitValue: 0
+        _secondValue: 0
       - _type: 0
         _value: 3
-        _hitValue: 0
+        _secondValue: 0
       - _type: 0
         _value: 1
-        _hitValue: 0
+        _secondValue: 0
       - _type: 0
         _value: 1
-        _hitValue: 0
+        _secondValue: 0
   - maxHealth: 10
     currentHealth: 10
     defoultHealth: 10
@@ -151,22 +151,22 @@ MonoBehaviour:
       _actions:
       - _type: 0
         _value: 3
-        _hitValue: 0
+        _secondValue: 0
       - _type: 0
         _value: 3
-        _hitValue: 0
+        _secondValue: 0
       - _type: 0
         _value: 2
-        _hitValue: 0
+        _secondValue: 0
       - _type: 0
         _value: 2
-        _hitValue: 0
+        _secondValue: 0
       - _type: 0
         _value: 2
-        _hitValue: 0
+        _secondValue: 0
       - _type: 0
         _value: 2
-        _hitValue: 0
+        _secondValue: 0
   - maxHealth: 15
     currentHealth: 15
     defoultHealth: 15
@@ -176,19 +176,19 @@ MonoBehaviour:
       _actions:
       - _type: 0
         _value: 5
-        _hitValue: 0
+        _secondValue: 0
       - _type: 5
         _value: 2
-        _hitValue: 1
+        _secondValue: 1
       - _type: 5
         _value: 2
-        _hitValue: 1
+        _secondValue: 1
       - _type: 0
         _value: 1
-        _hitValue: 0
+        _secondValue: 0
       - _type: 2
         _value: 2
-        _hitValue: 0
+        _secondValue: 0
       - _type: 2
         _value: 2
-        _hitValue: 0
+        _secondValue: 0

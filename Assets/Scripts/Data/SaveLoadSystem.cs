@@ -11,10 +11,7 @@ public class SaveLoadSystem : MonoBehaviour
 
     private void Awake()
     {
-        //SetDataDefoult();
-        Debug.Log("SLS awake");
         LoadSaves();
-        Debug.Log("SLS player health = "+savedGameData.savedPlayerData.currentHealth);
         SavePlayerHealth(10);
     }
 
@@ -24,7 +21,6 @@ public class SaveLoadSystem : MonoBehaviour
         savePath = Path.Combine(Application.persistentDataPath, "savedata.json");
         if (File.Exists(savePath))
         {
-            Debug.Log("SLS FILE EXISTS");
             string jsonData = File.ReadAllText(savePath);
             savedGameData = JsonUtility.FromJson<GameData>(jsonData);
             isNewGame = false;
@@ -41,7 +37,6 @@ public class SaveLoadSystem : MonoBehaviour
         savedGameData.savedPlayerData = defoultData.playerData;
         savedGameData.lastEnemyIndex = 0;
         savedGameData.lastLevelIndex = 0;
-        Debug.Log("SLS FILE DEFOULT");
 
     }
 

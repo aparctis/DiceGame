@@ -29,7 +29,6 @@ public class LoadingScreen : MonoBehaviour
 
     public void Hide()
     {
-        Debug.Log("Hide loading screen");
         sequence?.Kill();
         sequence = DOTween.Sequence();
 
