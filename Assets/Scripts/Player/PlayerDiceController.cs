@@ -50,6 +50,7 @@ public class PlayerDiceController : MonoBehaviour
 
     public void DecoreDice(DiceActionSet hand_1_set, DiceActionSet hand_2_set, DiceActionSet armor_set, DiceActionSet amulet_set, DiceActionSet pet_set)
     {
+
         hand_1.SetDiceActions(hand_1_set);
         hand_2.SetDiceActions(hand_2_set);
         armor.SetDiceActions(armor_set);
@@ -57,6 +58,14 @@ public class PlayerDiceController : MonoBehaviour
         pet.SetDiceActions(pet_set);
 
         allDices = new Dice[]{ hand_1, hand_2, armor, amulet, pet};
+
+        for (int i = 0; i<allDices.Length; i++)
+        {
+            Vector3 wait = positionConverter.GetWorldPosition(dicePlaceHolder[i], 2);
+            allDices[i].transform.position = wait;
+
+        }
+
     }
 
     public void RollDice(UnityAction onDone)

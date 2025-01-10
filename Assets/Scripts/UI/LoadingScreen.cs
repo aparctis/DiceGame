@@ -1,9 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
+using UnityEngine.Events;
 
 
 public class LoadingScreen : MonoBehaviour
@@ -11,6 +10,10 @@ public class LoadingScreen : MonoBehaviour
     [SerializeField] private CanvasGroup group;
     [SerializeField] private TMP_Text text;
     [SerializeField] private float fadeTime = 1.0f;
+    public float time => fadeTime;
+
+    public UnityAction onLoadingScreenHided;
+
     Sequence sequence;
 
     private void Awake()
@@ -38,6 +41,7 @@ public class LoadingScreen : MonoBehaviour
         {
             StopAllCoroutines();
             group.blocksRaycasts = false;
+            onLoadingScreenHided?.Invoke();
         }
     }
 

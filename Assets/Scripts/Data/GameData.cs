@@ -1,9 +1,13 @@
+using System.Collections.Generic;
+
 [System.Serializable]
 public class GameData
 {
     public PlayerData savedPlayerData;
     public int lastLevelIndex;
     public int lastEnemyIndex;
+
+    public List<EnemyData> enemys;
 }
 
 [System.Serializable]

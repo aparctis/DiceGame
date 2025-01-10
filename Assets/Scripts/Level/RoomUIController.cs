@@ -13,6 +13,9 @@ public class RoomUIController : MonoBehaviour
     private Vector2 startEnemyPosition;
     private Vector2 startPlayerPosition;
 
+    [SerializeField] private FadeUIScreen winScreen;
+    [SerializeField] private FadeUIScreen loseScreen;
+
     private Sequence sequence;
 
     private void Start()
@@ -40,5 +43,21 @@ public class RoomUIController : MonoBehaviour
         sequence = DOTween.Sequence();
         sequence.Append(enemySide.DOAnchorPos(startEnemyPosition, appearTime).SetEase(ease)).
             Join(playerSide.DOAnchorPos(startPlayerPosition, appearTime).SetEase(ease));
+    }
+
+    //from ROOM
+    public void HideAll()
+    {
+
+    }
+
+    public void WinUI()
+    {
+
+    }
+
+    public void LoseUI()
+    {
+
     }
 }

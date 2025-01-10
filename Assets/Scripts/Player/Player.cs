@@ -5,7 +5,7 @@ public class Player : PlayAble
 {
     [SerializeField] PlayerDiceController playerDiceController;
 
-
+    public int playerHealthLeft => healthController.healthLeft;
     public void SetPlayerData(PlayerData data)
     {
         healthController.SetHealth(data.currentHealth, data.maxHealth);
@@ -21,5 +21,10 @@ public class Player : PlayAble
     public override void UseActions(UnityAction onDone)
     {
         playerDiceController.UseActions(onDone);
+    }
+
+    internal override void Death()
+    {
+        base.Death();
     }
 }

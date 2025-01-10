@@ -4,15 +4,18 @@ using System.IO;
 public class SaveLoadSystem : MonoBehaviour
 {
     private GameData savedGameData;
+    public GameData gameData => savedGameData;
+
     [SerializeField] private GameSet defoultData;
     public bool isNewGame{ get; private set; }
 
     private string savePath;
 
+    public int levelsCount = 12;
+
     private void Awake()
     {
         LoadSaves();
-        SavePlayerHealth(10);
     }
 
     //load saved data if there is save
@@ -37,6 +40,15 @@ public class SaveLoadSystem : MonoBehaviour
         savedGameData.savedPlayerData = defoultData.playerData;
         savedGameData.lastEnemyIndex = 0;
         savedGameData.lastLevelIndex = 0;
+
+        for(int i = 0; i< levelsCount; i++)
+        {
+            EnemyData data;
+            if(i<=defoultData.enemyData.Count) data = defoultData.enemyData[i];
+            else data = defoultData.enemyData[Random.RandomRange(0, defoultData.enemyData.Count)];
+            savedGameData.enemys.Add(data);
+
+        }
 
     }
 

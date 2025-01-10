@@ -10,6 +10,8 @@ public class HealthController : MonoBehaviour
     private int maxHealth;
     private int currentHealth;
 
+    public int healthLeft => currentHealth;
+
     private int poisonDamage;
     [SerializeField]private int maxPoisonDamage = 2;
 

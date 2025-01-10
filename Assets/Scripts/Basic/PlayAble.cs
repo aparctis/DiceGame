@@ -94,7 +94,7 @@ public class PlayAble : MonoBehaviour, IActionReceiver
         armorController.AddArmor(armor);
     }
 
-    internal void Death()
+    internal virtual void Death()
     {
         onDeath?.Invoke();
     }
