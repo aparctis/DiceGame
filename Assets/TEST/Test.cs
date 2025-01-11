@@ -9,10 +9,22 @@ using UnityEngine.Events;
 
 public class Test : MonoBehaviour
 {
+    public DescriptionData[] datas;
+    private Dictionary<string, int> disctionary = new Dictionary<string, int>
+    {
+        {"value", 0 },
+        {"secondValue", 0 }
+    };
 
 
 }
 
+[System.Serializable]
+public class DescriptionData
+{
+    public Sprite sprite;
+    public string description;
+}
 
 
 

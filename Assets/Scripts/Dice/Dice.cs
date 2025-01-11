@@ -22,7 +22,7 @@ public class Dice : MonoBehaviour
 
     private ActionObjectPool actionObjectPool;
     private bool canClick = false;
-
+    private DiceActionSet actionSet;
 
     [Inject]
     private void Construct(ActionObjectPool pool)
@@ -37,6 +37,7 @@ public class Dice : MonoBehaviour
         {
             sides[i].SetAction(newActionSet.actions[i]);
         }
+        actionSet = newActionSet;
     }
 
     public void SetPositions(Vector3 newWaitposition, Vector3 newBoardPosition, Vector3 newMiddlePosition)
@@ -131,5 +132,6 @@ public class Dice : MonoBehaviour
     private void OnMouseDown()
     {
         Debug.Log("Click on dice");
+        DiceSetUI.instance.ShowSet(actionSet);
     }
 }

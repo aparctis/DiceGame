@@ -12,7 +12,6 @@ public class DiceSideUI : MonoBehaviour
 {
     [SerializeField] private Image actionImage;
     [SerializeField] private Image selection;
-    [SerializeField] private Image bg;
 
     private int index;
     public UnityAction<int> onClicked;
@@ -24,10 +23,14 @@ public class DiceSideUI : MonoBehaviour
         index = i;
     }
 
+    public void SetImage(Sprite image)
+    {
+        actionImage.sprite = image;
+    }
+
     public void Ckick()
     {
         onClicked?.Invoke(index);
-        Select();
     }
 
     public void Select()
@@ -38,7 +41,9 @@ public class DiceSideUI : MonoBehaviour
     public void UnSelect()
     {
         StopAllCoroutines();
-        selection.DOFade(0, 0.25f);
+        sequence?.Kill();
+        sequence = DOTween.Sequence();
+        sequence.Append(selection.DOFade(0, 0.25f));
     }
 
     private IEnumerator SelectAnimationRutine()
