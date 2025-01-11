@@ -92,7 +92,7 @@ public class SaveLoadSystem : MonoBehaviour
         }
     }
 
-    public void SavePlayerHealth(int playerCurrentHealth)
+    public void SavePlayerData(int playerCurrentHealth, int playerPoison)
     {
         if (savedGameData?.playerData == null)
         {
@@ -101,6 +101,7 @@ public class SaveLoadSystem : MonoBehaviour
         }
 
         savedGameData.playerData.currentHealth = playerCurrentHealth;
+        savedGameData.playerData.currentPoison = playerPoison;
         SaveData();
     }
 

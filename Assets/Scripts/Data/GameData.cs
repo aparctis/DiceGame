@@ -15,10 +15,10 @@ public class PlayerData
     public int currentHealth;
 
     //Armor
-    public int currentArmor;
+    public int defoultArmor;
 
     //poison
-    public int poison;
+    public int currentPoison;
 
     //Dices
     public DiceActionSet hand_1;

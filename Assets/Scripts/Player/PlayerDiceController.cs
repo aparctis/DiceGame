@@ -67,17 +67,24 @@ public class PlayerDiceController : MonoBehaviour
         }
 
     }
-
-    public void RollDice(UnityAction onDone)
+    public void PrepereDice(UnityAction callBack)
     {
-        StartCoroutine(RollRutine(onDone));
+        SetPositions();
+        StartCoroutine(PrepereDices(callBack));
     }
 
-    public void UseActions(UnityAction onDone)
+
+    public void RollDice(UnityAction callBack)
     {
-        StartCoroutine(UseAllActionsRutine(onDone));
+        StartCoroutine(RollRutine(callBack));
     }
-    private IEnumerator UseAllActionsRutine(UnityAction onDone)
+
+    public void UseActions(UnityAction callBack)
+    {
+        Debug.Log("PlayerDiceController UseActions");
+        StartCoroutine(UseAllActionsRutine(callBack));
+    }
+    private IEnumerator UseAllActionsRutine(UnityAction callBack)
     {
         for(int i = 0; i < allDices.Length; i++)
         {
@@ -86,7 +93,9 @@ public class PlayerDiceController : MonoBehaviour
             while(!isActionUsed) yield return new WaitForSeconds(tickTime);
         }
         yield return null;
-        onDone?.Invoke();
+        callBack?.Invoke();
+        Debug.Log("PlayerDiceController UseAllActionsRutine done");
+
     }
 
 
@@ -104,7 +113,7 @@ public class PlayerDiceController : MonoBehaviour
 
     
 
-    private IEnumerator RollRutine(UnityAction onDone)
+    private IEnumerator RollRutine(UnityAction  callBack)
     {
         SetPositions();
 
@@ -130,21 +139,34 @@ public class PlayerDiceController : MonoBehaviour
         }
         while (dicesReady != allDices.Length) yield return new WaitForSeconds(tickTime);
 
-        dicesReady = 0;
-        foreach (Dice dice in allDices)
-        {
-            dice.ReturnDice(flyTime, () => dicesReady++);
-        }
-        while (dicesReady != allDices.Length) yield return new WaitForSeconds(tickTime);
-        onDone?.Invoke();
+        StartCoroutine(PrepereDices(callBack));
     }
 
-    private void OnSwipe(Vector2 newSwipe)
+
+    private IEnumerator PrepereDices(UnityAction callBack)
+    {
+        int completed = 0;
+        foreach (Dice dice in allDices)
+        {
+            dice.ReturnDice(flyTime, () => completed++);
+        }
+        while (completed != allDices.Length) yield return new WaitForSeconds(tickTime);
+
+        Debug.Log("ROLL RUTINE Is Over");
+        callBack.Invoke();
+    }
+
+    private void OnSwipe(Vector2 swipeDirection)
     {
         if (isWaitForSwipe)
         {
-            lastSwipe = newSwipe;
+            lastSwipe = swipeDirection;
             isWaitForSwipe = false;
         }
+    }
+
+    public void StopAll()
+    {
+        StopAllCoroutines();
     }
 }

@@ -28,46 +28,80 @@ public class Room : MonoBehaviour
 
     private void OnEnable()
     {
-        Debug.Log("Enable)");
-        player.onDeath += OnLose;
-        enemy.onDeath += OnWin;
-        levelLoader.onLoadingOver += PlayLoaded;
+        Suscribe();
     }
+
     private void OnDisable()
     {
-        Debug.Log("OnDisable)");
+        Unsuscribe();
+    }
 
-        player.onDeath -= OnLose;
-        enemy.onDeath -= OnWin;
-        levelLoader.onLoadingOver -= PlayLoaded;
+    private void Suscribe()
+    {
+        Debug.Log("ROOM SUSCRIBVE");
+        player.onDeath += Lose;
+        enemy.onDeath += Win;
+
+        roomUIController.onNextRaund += NextLevel;
+        roomUIController.onSceneRebooted += StartRaund;
+    }
+    private void Unsuscribe()
+    {
+        Debug.Log("ROOM UNSUSCRIBVE");
+        player.onDeath -= Lose;
+        enemy.onDeath -= Win;
+        roomUIController.onNextRaund -= NextLevel;
+        roomUIController.onSceneRebooted -= StartRaund;
 
     }
 
+    private void Awake()
+    {
+        roomUIController.Initialize(levelLoader, saveLoadSystem);
+    }
+
+    private void Start()
+    {
+        StartRaund();
+    }
+
+    private void StartRaund()
+    {
+        Debug.Log("START RAUND");
+
+        LoadData();
+        StartCoroutine(RaundRutine());
+    }
     private void LoadData()
     {
         Debug.Log("LoadData");
 
         if (saveLoadSystem == null) Debug.Log("SLS is NULL!");
-        if(saveLoadSystem.getGameData()==null) Debug.Log("DATA is NULL!");
+        if (saveLoadSystem.getGameData() == null) Debug.Log("DATA is NULL!");
 
         GameData data = saveLoadSystem.getGameData();
-        Debug.Log(data.playerData.currentHealth);
-
 
         player.SetPlayerData(data.playerData);
         enemy.SetEnemyData(data.enemyDatas[data.lastLevelIndex]);
         maxRaundIndex = saveLoadSystem.levelsCount;
     }
-
-
     private IEnumerator RaundRutine()
     {
         Debug.Log("RaundRutine");
-
-        LoadData();
-        yield return null;
-
         bool isNextMove = false;
+
+        //show players
+        roomUIController.ShowPlayers(()=>isNextMove = true);
+        while (!isNextMove) yield return new WaitForSeconds(timeTick);
+
+
+        //show dices
+        int dicesChowed = 0;
+        player.PrepereDice(()=>dicesChowed++);
+        enemy.PrepereDice(() => dicesChowed++);
+        while (dicesChowed<2) yield return new WaitForSeconds(timeTick);
+
+
 
         while (true)
         {
@@ -91,6 +125,8 @@ public class Room : MonoBehaviour
             player.RollDice(() => isNextMove = true);
             while (!isNextMove) yield return new WaitForSeconds(timeTick);
 
+            Debug.Log("Use actions");
+
             //player action
             isNextMove = false;
             player.UseActions(() => isNextMove = true);
@@ -106,42 +142,30 @@ public class Room : MonoBehaviour
 
     }
 
-    private void OnWin()
+    private void Win()
     {
+        Debug.Log("WIN");
+        player.StopAll();
+        enemy.StopAll();
+
         StopAllCoroutines();
         roomUIController.WinUI();
     }
 
-    private void OnLose()
+    private void Lose()
     {
+        Debug.Log("LOSE");
+        player.StopAll();
+        enemy.StopAll();
+
         StopAllCoroutines();
         roomUIController.LoseUI();
     }
 
-
-    //for Buttons
-    private void PlayLoaded()
-    {
-        Debug.Log("PlayLoaded");
-        StartCoroutine(RaundRutine());
-    }
-
-
-    public void ButtonRestart()
-    {
-        levelLoader.FakeLoad(1.05f);
-    }
-
-
-    public void ButtonNext()
+    private void NextLevel()
     {
         currentRaundIndex++;
-        levelLoader.FakeLoad(1.05f);
-    }
-
-
-    public void ExitGame()
-    {
-        Application.Quit();
+        saveLoadSystem.SaveLevel(currentRaundIndex);
+        saveLoadSystem.SavePlayerData(player.healthLeft, player.poisonLeft);
     }
 }

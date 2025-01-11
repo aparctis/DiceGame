@@ -78,16 +78,16 @@ public class SwipeDetector : MonoBehaviour, ISwipeDetector, IInitializable
 
         if (swipeTime > maximumSwipeTime) return;
 
-        Vector2 swipeDistance = position - touchStartPosition;
+        Vector2 swipeDirection = position - touchStartPosition;
 
-        if (swipeDistance.magnitude < minimumSwipeDistance) return;
+        if (swipeDirection.magnitude < minimumSwipeDistance) return;
 
-        onAnySwipe?.Invoke(swipeDistance.normalized);
+        onAnySwipe?.Invoke(swipeDirection);
         Debug.Log("SWIPE");
 
-        if (Mathf.Abs(swipeDistance.x) > Mathf.Abs(swipeDistance.y))
+        if (Mathf.Abs(swipeDirection.x) > Mathf.Abs(swipeDirection.y))
         {
-            if (swipeDistance.x > 0)
+            if (swipeDirection.x > 0)
             {
                 onSwipeRight?.Invoke();
             }
@@ -98,7 +98,7 @@ public class SwipeDetector : MonoBehaviour, ISwipeDetector, IInitializable
         }
         else
         {
-            if (swipeDistance.y > 0)
+            if (swipeDirection.y > 0)
             {
                 onSwipeUp?.Invoke();
             }

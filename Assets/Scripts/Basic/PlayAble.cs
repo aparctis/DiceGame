@@ -6,11 +6,9 @@ public class PlayAble : MonoBehaviour, IActionReceiver
 {
     [SerializeField] internal HealthController healthController;
     [SerializeField] internal ArmorController armorController;
-
     [SerializeField] internal RectTransform _avatarRect;
 
-
-    public UnityAction onDeath;
+    public event UnityAction onDeath;
 
     internal PositionConverter positionConverter;
 
@@ -42,6 +40,12 @@ public class PlayAble : MonoBehaviour, IActionReceiver
     {
         healthController.AplyPoisonDamage();
     }
+
+    public virtual void PrepereDice(UnityAction onDone)
+    {
+
+    }
+
 
     public virtual void RollDice(UnityAction onDone)
     {
@@ -96,6 +100,12 @@ public class PlayAble : MonoBehaviour, IActionReceiver
 
     internal virtual void Death()
     {
+        avatarModel.Death();
         onDeath?.Invoke();
+    }
+
+    public virtual void StopAll()
+    {
+
     }
 }

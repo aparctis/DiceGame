@@ -27,6 +27,11 @@ public class EnemyDiceController : MonoBehaviour
         dice.SetDiceActions(actionSet);
     }
 
+    public void PrepereDice(UnityAction callBack)
+    {
+        SetPositions();
+        StartCoroutine(ReturnRutine(callBack));
+    }
     public void RollDice(UnityAction onDone)
     {
         StartCoroutine(RollRutine(onDone));
@@ -44,7 +49,7 @@ public class EnemyDiceController : MonoBehaviour
         dice.SetPositions(wait, board, middle);
     }
 
-    private IEnumerator RollRutine(UnityAction onDone)
+    private IEnumerator RollRutine(UnityAction callBack)
     {
         SetPositions();
 
@@ -58,9 +63,15 @@ public class EnemyDiceController : MonoBehaviour
         while (!isDone) yield return new WaitForSeconds(tickTime);
         yield return new WaitForSeconds(delay);
 
-        isDone = false;
-        dice.ReturnDice(flyTime , () => isDone = true);
+        StartCoroutine(ReturnRutine(callBack));
+    }
+
+
+    private IEnumerator ReturnRutine(UnityAction callBack)
+    {
+        bool isDone = false;
+        dice.ReturnDice(flyTime, () => isDone = true);
         while (!isDone) yield return new WaitForSeconds(tickTime);
-        onDone?.Invoke();
+        callBack?.Invoke();
     }
 }

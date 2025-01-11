@@ -12,8 +12,6 @@ public class LoadingScreen : MonoBehaviour
     [SerializeField] private float fadeTime = 1.0f;
     public float time => fadeTime;
 
-    public UnityAction onLoadingScreenHided;
-
     Sequence sequence;
 
     private void Awake()
@@ -27,10 +25,10 @@ public class LoadingScreen : MonoBehaviour
         sequence?.Kill();
         sequence = DOTween.Sequence();
 
-        sequence.Append(group.DOFade(0, fadeTime));
+        sequence.Append(group.DOFade(1, fadeTime));
     }
 
-    public void Hide()
+    public void Hide(UnityAction callBack)
     {
         sequence?.Kill();
         sequence = DOTween.Sequence();
@@ -41,7 +39,7 @@ public class LoadingScreen : MonoBehaviour
         {
             StopAllCoroutines();
             group.blocksRaycasts = false;
-            onLoadingScreenHided?.Invoke();
+            callBack?.Invoke();
         }
     }
 

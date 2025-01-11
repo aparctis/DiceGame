@@ -5,17 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class LevelLoader : MonoBehaviour
 {
-    public UnityAction onLoadingOver;
-
-
+    public event UnityAction onLoadingOver;
     [SerializeField] private LoadingScreen loadingScreen;
-
-
 
     private void Awake()
     {
         LoadGameScene();
-        loadingScreen.onLoadingScreenHided += () => onLoadingOver?.Invoke();
+        onLoadingOver += () => Debug.Log("onLoadingOver");
     }
 
 
@@ -33,25 +29,20 @@ public class LevelLoader : MonoBehaviour
             yield return null;
         }
 
-        loadingScreen.Hide();
+        loadingScreen.Hide(onLoadingOver);
         asynkLoad.allowSceneActivation = true;
     }
 
-    public void FakeLoad(float waitTime)
+    public void FakeLoad(float waitTime, UnityAction callBack)
     {
-        StartCoroutine(FakeLoadRutine(waitTime));
+        StartCoroutine(FakeLoadRutine(waitTime, callBack));
     }
 
-    private IEnumerator FakeLoadRutine(float waitTime)
+    private IEnumerator FakeLoadRutine(float waitTime, UnityAction callBack)
     {
         loadingScreen.Show();
-        yield return new WaitForSeconds(loadingScreen.time);
-
-        yield return new WaitForSeconds(waitTime);
-        loadingScreen.Hide();
-        yield return new WaitForSeconds(loadingScreen.time);
-
-
+        yield return new WaitForSeconds(loadingScreen.time+ waitTime);
+        loadingScreen.Hide(callBack);
     }
 }
 

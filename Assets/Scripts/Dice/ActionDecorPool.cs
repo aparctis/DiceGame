@@ -88,6 +88,7 @@ public class ActionDecorPool : MonoBehaviour, IInitializable
         int index = ((int)type);
         List<GameObject> _pool = decorePoolList[index];
         _object.SetActive(false);
+        _object.transform.parent = null;
         _pool.Add(_object);
     }
 
@@ -124,6 +125,7 @@ public class ActionDecorPool : MonoBehaviour, IInitializable
         int index = value - 1;
         List<GameObject> _pool = valuePoolList[index];
         _object.SetActive(false);
+        _object.transform.parent=null;
         _pool.Add(_object);
     }
 

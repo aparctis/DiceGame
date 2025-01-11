@@ -14,7 +14,7 @@ public class Enemy : PlayAble
         avatarModel = _enemyAvatarManager.ActivateAvatar(enemyData.avatarModelIndex);
 
         //health
-        healthController.SetHealth(enemyData.currentHealth, enemyData.maxHealth);
+        healthController.SetHealth(enemyData.currentHealth, enemyData.maxHealth, 0);
 
         //armor
         armorController.SetArmor(enemyData.currentArmor);
@@ -31,5 +31,15 @@ public class Enemy : PlayAble
     public override void UseActions(UnityAction onDone)
     {
         _enemyDiceController.UseActions(onDone);
+    }
+
+    public override void PrepereDice(UnityAction onDone)
+    {
+        _enemyDiceController.PrepereDice(onDone);
+    }
+    internal override void Death()
+    {
+        Debug.Log("ENEMY DEATH");
+        base.Death();
     }
 }

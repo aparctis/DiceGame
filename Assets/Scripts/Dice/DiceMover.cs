@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Events;
+using NaughtyAttributes;
 
 [RequireComponent(typeof(Rigidbody), typeof(Collider))]
 public class DiceMover : MonoBehaviour
@@ -10,11 +11,13 @@ public class DiceMover : MonoBehaviour
     [SerializeField] private Collider collider;
     [SerializeField] private Ease kinematicMoveEase = Ease.InOutCubic;
 
-
-    public float throwForce = 5f;
-    public float torqueForce = 10f;
     private float minimalMagnitude = 0.01f;
     private float timeTick = 0.05f;
+
+
+
+    [SerializeField] private float force_min = 2.0f;
+    [SerializeField] private float force_max =12.0f;
 
     private Sequence sequence;
 
@@ -26,30 +29,47 @@ public class DiceMover : MonoBehaviour
         if(!collider)collider = GetComponent<Collider>();
     }
 
-    public void RollDice(Vector2 swipeDirection, UnityAction onDone)
+    private void RollDice(Vector3 direction, float force, UnityAction onDone)
     {
         collider.isTrigger = false;
         rb.isKinematic = false;
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
 
-        rb.AddForce(swipeDirection.normalized * throwForce, ForceMode.Impulse);
+        rb.AddForce(direction * force, ForceMode.Impulse);
 
         Vector3 randomTorque = new Vector3(
-            Random.Range(-torqueForce, torqueForce),
-            Random.Range(-torqueForce, torqueForce),
-            Random.Range(-torqueForce, torqueForce)
-        );
+            Random.Range(-1, 1),
+            Random.Range(-1, 1),
+            Random.Range(-1, 1)
+        )*force;
         rb.AddTorque(randomTorque, ForceMode.Impulse);
 
         velocityCheckRutine = StartCoroutine(DiceVelocityCheck(onDone));
     }
 
+    //for roll on swipe
+    public void RollDice(Vector2 swipe, UnityAction callBack)
+    {
+        //convert direction from canvas to world and add up direction
+        Vector3 worldSwipeDirection = new Vector3(swipe.x, 0, swipe.y).normalized;
+        Vector3 throwDirection = (worldSwipeDirection+Vector3.up).normalized;
 
+        //set force depends of swipe langth
+        float swipeLength = swipe.magnitude;
+        float screenMinimalLength = Mathf.Min(Screen.width, Screen.height);
+        float swipeForce = Mathf.Clamp((swipeLength/screenMinimalLength), 0, 1.0f);
+        float force = Mathf.Lerp(force_min, force_max, swipeForce);
+
+        RollDice(throwDirection, force, callBack);
+    }
+
+    //for random roll
     public void RollDice(UnityAction onDone)
     {
-        Vector3 throwDirection = Vector3.up + new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
-        RollDice(throwDirection, onDone);
+        Vector3 throwDirection = Vector3.up + new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
+        float throwForce = Random.Range(force_min, force_max);
+        RollDice(throwDirection, throwForce, onDone);
 
     }
 

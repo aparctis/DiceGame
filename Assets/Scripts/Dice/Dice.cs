@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using Zenject;
@@ -20,6 +21,8 @@ public class Dice : MonoBehaviour
     private Side upperSide;
 
     private ActionObjectPool actionObjectPool;
+    private bool canClick = false;
+
 
     [Inject]
     private void Construct(ActionObjectPool pool)
@@ -44,6 +47,7 @@ public class Dice : MonoBehaviour
 
     public void MoveToBoard(float moveTime, UnityAction onMoveDone)
     {
+        canClick = false;
         diceMover.MoveDice(boardPosition, true, moveTime, onMoveDone);
     }
 
@@ -59,39 +63,43 @@ public class Dice : MonoBehaviour
 
     public void ReturnDice(float moveTime, UnityAction onMoveDone)
     {
+        canClick = true;
         DefineUpperSide();
         diceMover.MoveDice(waitPosition, upperSide.corectAngle, moveTime, onMoveDone);
     }
 
 
-    public void UseAction(UnityAction onDone)
+    public void UseAction(UnityAction callBack)
     {
+        Debug.Log("Dice UseAction");
         DiceAction action = upperSide.action;
         switch (action.type)
         {
             case ActionType.damage:
-                UseSingleAction(onDone, ActionObjectType.atack, action.value);
+                UseSingleAction(callBack, ActionObjectType.atack, action.value);
                 break;
             case ActionType.poison:
-                UseSingleAction(onDone, ActionObjectType.poison, action.value);
+                UseSingleAction(callBack, ActionObjectType.poison, action.value);
                 break;
             case ActionType.hill:
-                UseSingleAction(onDone, ActionObjectType.health, action.value);
+                UseSingleAction(callBack, ActionObjectType.health, action.value);
                 break;
             case ActionType.armor:
-                UseSingleAction(onDone, ActionObjectType.armor, action.value);
+                UseSingleAction(callBack, ActionObjectType.armor, action.value);
                 break;
             case ActionType.damageAndPoison:
-                UseSingleAction(()=>UseSingleAction(onDone, ActionObjectType.poison, action.secondValue), ActionObjectType.atack, action.value);
+                UseSingleAction(()=>UseSingleAction(callBack, ActionObjectType.poison, action.secondValue), ActionObjectType.atack, action.value);
                 break;
             case ActionType.damageAndArmor:
-                UseSingleAction(() => UseSingleAction(onDone, ActionObjectType.armor, action.secondValue), ActionObjectType.atack, action.value);
+                UseSingleAction(() => UseSingleAction(callBack, ActionObjectType.armor, action.secondValue), ActionObjectType.atack, action.value);
                 break;
         }
     }
 
     private void UseSingleAction(UnityAction onDone, ActionObjectType type, int value)
     {
+        Debug.Log("Dice UseSingleAction");
+
         IActionReceiver receiver;
         if (type == ActionObjectType.atack || type == ActionObjectType.poison)
         {
@@ -102,7 +110,7 @@ public class Dice : MonoBehaviour
         Vector3 targetPosition = receiver.recieverPosition();
         ActionObject actionObject = actionObjectPool.getActionObject(type);
         actionObject.transform.position = upperSide.transform.position;
-
+        actionObject.gameObject.SetActive(true);
         actionObject.ApplyAction(value, middlePosition, receiver, targetPosition, isEnemyDice, onDone);
     }
 
@@ -117,5 +125,11 @@ public class Dice : MonoBehaviour
             if (sides[i].transform.position.y > sides[upperIndex].transform.position.y) upperIndex = i;
         }
         upperSide = sides[upperIndex];
+    }
+
+
+    private void OnMouseDown()
+    {
+        Debug.Log("Click on dice");
     }
 }

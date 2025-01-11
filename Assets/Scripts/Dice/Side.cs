@@ -32,6 +32,7 @@ public class Side : MonoBehaviour
 
     public void SetAction(DiceAction newAction)
     {
+        //Clear previus if not null
         if(_action!=null)
         {
             ActionType lastType = _action.type;
@@ -85,6 +86,5 @@ public class Side : MonoBehaviour
         _action = newAction;
 
     }
-
 
 }
