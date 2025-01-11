@@ -7319,8 +7319,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cc99b43db978ac409c9e7c9a8c75215, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionImage: {fileID: 0}
-  bg: {fileID: 0}
+  actionImage: {fileID: 461403695}
+  selection: {fileID: 453624256}
+  bg: {fileID: 63628174}
 --- !u!1 &1123537480
 GameObject:
   m_ObjectHideFlags: 0
