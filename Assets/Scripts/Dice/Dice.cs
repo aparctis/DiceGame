@@ -132,6 +132,6 @@ public class Dice : MonoBehaviour
     private void OnMouseDown()
     {
         Debug.Log("Click on dice");
-        DiceSetUI.instance.ShowSet(actionSet);
+        DiceSetUI.instance?.ShowSet(actionSet);
     }
 }

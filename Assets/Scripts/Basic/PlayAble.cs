@@ -100,7 +100,7 @@ public class PlayAble : MonoBehaviour, IActionReceiver
 
     internal virtual void Death()
     {
-        avatarModel.Death();
+        avatarModel?.Death();
         onDeath?.Invoke();
     }
 

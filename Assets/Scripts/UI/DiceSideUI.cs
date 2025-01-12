@@ -48,13 +48,14 @@ public class DiceSideUI : MonoBehaviour
 
     private IEnumerator SelectAnimationRutine()
     {
-        float blinkTime = 1.0f;
+        float blinkTime = 0.5f;
         while (true)
         {
             sequence?.Kill();
             sequence = DOTween.Sequence();
-            sequence.Append(selection.DOFade(0, blinkTime / 2).SetEase(Ease.InOutCubic)).
-                Append(selection.DOFade(1, blinkTime / 2).SetEase(Ease.InOutCubic));
+            sequence.
+                Append(selection.DOFade(1, blinkTime / 2).SetEase(Ease.InOutCubic)).
+                Append(selection.DOFade(0, blinkTime / 2).SetEase(Ease.InOutCubic));
 
             yield return new WaitForSeconds(blinkTime);
             yield return null;

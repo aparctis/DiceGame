@@ -3,22 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
 
 public class DiceSetUI : MonoBehaviour
 {
     public static DiceSetUI instance {  get; private set; }
+
+    [SerializeField] private CanvasGroup allContent;
+    [SerializeField] private CanvasGroup discriptionContent;
 
     [SerializeField] private DiceSideUI[] diceSidesUIs;
     [SerializeField] private ActionDiscription[] disriptions;
     [SerializeField] private Image selectedImage;
     [SerializeField] private TextMeshProUGUI selectedDiscription;
 
-    private int selectedSide;
+    private int selectedSideIndex;
 
     private Dictionary<ActionType, ActionDiscription> dictionary = new Dictionary<ActionType, ActionDiscription>();
 
-
+    private Sequence sequence;
     private DiceActionSet selectedSet;
+    private bool isShowing = false;
 
     private void Awake()
     {
@@ -33,6 +38,14 @@ public class DiceSetUI : MonoBehaviour
 
     private void Initialize()
     {
+        allContent.alpha = 0f;
+        allContent.interactable = false;
+        allContent.blocksRaycasts = false;
+        allContent.gameObject.SetActive(false);
+
+        discriptionContent.alpha = 0f;
+
+
         for (int i = 0; i < diceSidesUIs.Length; i++)
         {
             diceSidesUIs[i].Initialize(i);
@@ -41,6 +54,34 @@ public class DiceSetUI : MonoBehaviour
         for(int i =0; i< disriptions.Length; i++)
         {
             dictionary.Add(disriptions[i].type, disriptions[i]);
+        }
+
+    }
+
+    private void Show()
+    {
+        isShowing = true;
+        allContent.interactable = true;
+        allContent.blocksRaycasts = true;
+        sequence?.Kill();
+        sequence = DOTween.Sequence();
+        sequence.Append(allContent.DOFade(1, 1));
+    }
+
+    public void Hide()
+    {
+        sequence?.Kill();
+        sequence = DOTween.Sequence();
+        sequence.Append(allContent.DOFade(0, 1)).OnComplete(OnComplete);
+
+        void OnComplete()
+        {
+            discriptionContent.alpha = 0;
+            allContent.alpha = 0f;
+            allContent.interactable = false;
+            allContent.blocksRaycasts = false;
+            isShowing = false;
+            allContent.gameObject.SetActive(false);
         }
     }
 
@@ -56,24 +97,30 @@ public class DiceSetUI : MonoBehaviour
 
     private void SelectSide(int sideIndex)
     {
-        if (sideIndex != selectedSide)
+        if (sideIndex != selectedSideIndex)
         {
-            diceSidesUIs[selectedSide].UnSelect();
+            diceSidesUIs[selectedSideIndex].UnSelect();
             diceSidesUIs[sideIndex].Select();
-            selectedSide = sideIndex;
+            selectedSideIndex = sideIndex;
 
             if (selectedSet != null)
             {
                 DiceAction action = selectedSet.actions[sideIndex];
                 selectedImage.sprite = dictionary[action.type].sprite;
                 selectedDiscription.text = getDiscription(action);
+
             }
-            
+            discriptionContent.alpha = 1f;
+
         }
+
     }
 
     public void ShowSet(DiceActionSet set)
     {
+        if (isShowing) return;
+        Debug.Log("Show set");
+        allContent.gameObject.SetActive(true);
         selectedSet = set;
         if (set.actions.Length != diceSidesUIs.Length)
         {
@@ -82,19 +129,26 @@ public class DiceSetUI : MonoBehaviour
         }
         for(int i = 0; i<set.actions.Length; i++)
         {
+
             DiceSideUI sideUI = diceSidesUIs[i];
             DiceAction action = set.actions[i];
 
             Sprite sprite = dictionary[action.type].sprite;
             sideUI.SetImage(sprite);
         }
+        Show();
     }
 
     private string getDiscription(DiceAction action)
     {
-        string template = dictionary[action.type].description;
-        return template.Replace("{value}", action.value.ToString()).
-            Replace("{secondValue}", action.secondValue.ToString());
+        if (dictionary.ContainsKey(action.type))
+        {
+            string template = dictionary[action.type].description;
+            return template.Replace("{value}", action.value.ToString()).
+                Replace("{secondValue}", action.secondValue.ToString());
+        }
+        else return $"Can`t find info about {action.type}";
+
 
     }
 }
