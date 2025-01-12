@@ -65,14 +65,24 @@ public class ArmorUI : MonoBehaviour
             {
                 sequence.
                 Append(circle.DOScale(blinkScale, blinkTime / 2)).
-                Append(circle.DOScale(1, blinkTime / 2));
+                Append(circle.DOScale(1, blinkTime / 2)).
+                Append(textRect.DOScale(blinkScale, blinkTime / 2)).
+                    Join(line.DOScaleX(blinkScale, blinkTime / 2)).
+                    Append(textRect.DOScale(1, blinkTime / 2)).
+                    Join(line.DOScaleX(1, blinkTime / 2));
+
             }
 
-            sequence.
-                Append(textRect.DOScale(blinkScale, blinkTime / 2)).
-                Join(line.DOScaleX(blinkScale, blinkTime / 2)).
-                Append(textRect.DOScale(1, blinkTime / 2)).
-                Join(line.DOScaleX(1, blinkTime / 2));
+            else
+            {
+
+                sequence.
+                    Append(textRect.DOScale(blinkScale, blinkTime / 2)).
+                    Join(line.DOScaleX(blinkScale, blinkTime / 2)).
+                    Append(textRect.DOScale(1, blinkTime / 2)).
+                    Join(line.DOScaleX(1, blinkTime / 2));
+            }
+
         }
 
         lastArmorValue = newArmor;

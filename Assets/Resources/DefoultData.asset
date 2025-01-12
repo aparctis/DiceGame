@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerData:
     maxHealth: 20
-    currentHealth: 20
-    currentArmor: 0
+    currentHealth: 17
+    defoultArmor: 0
+    currentPoison: 0
     hand_1:
       _actions:
       - _type: 0
@@ -34,7 +35,7 @@ MonoBehaviour:
         _value: 1
         _secondValue: 0
       - _type: 1
-        _value: 0
+        _value: 1
         _secondValue: 0
     hand_2:
       _actions:
@@ -51,7 +52,7 @@ MonoBehaviour:
         _value: 1
         _secondValue: 0
       - _type: 1
-        _value: 0
+        _value: 1
         _secondValue: 0
       - _type: 4
         _value: 1
@@ -119,7 +120,6 @@ MonoBehaviour:
   enemyData:
   - maxHealth: 7
     currentHealth: 7
-    defoultHealth: 7
     currentArmor: 0
     avatarModelIndex: 0
     diceSet:
@@ -144,7 +144,6 @@ MonoBehaviour:
         _secondValue: 0
   - maxHealth: 10
     currentHealth: 10
-    defoultHealth: 10
     currentArmor: 0
     avatarModelIndex: 1
     diceSet:
@@ -169,7 +168,6 @@ MonoBehaviour:
         _secondValue: 0
   - maxHealth: 15
     currentHealth: 15
-    defoultHealth: 15
     currentArmor: 0
     avatarModelIndex: 2
     diceSet:

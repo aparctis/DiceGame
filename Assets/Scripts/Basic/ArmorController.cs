@@ -21,22 +21,21 @@ public class ArmorController : MonoBehaviour
         }
         else
         {
-            int newArmor = currentArmor - incomeDamage;
-            if(newArmor< 0) newArmor = 0;
-            armorUI.ShowArmorChange(newArmor);
-
             int trueDamage = incomeDamage - currentArmor;
             if(trueDamage < 0) trueDamage = 0;
             
-            currentArmor = newArmor;
+            currentArmor = Mathf.Clamp(currentArmor-incomeDamage, 0, currentArmor);
+            armorUI.ShowArmorChange(currentArmor);
             return trueDamage;
         }
     }
 
     public void AddArmor(int incomeArmor)
     {
-        currentArmor += incomeArmor;
-        armorUI.ShowArmorChange(currentArmor);
-
+        if (incomeArmor > 0)
+        {
+            currentArmor += incomeArmor;
+            armorUI.ShowArmorChange(currentArmor);
+        }
     }
 }
