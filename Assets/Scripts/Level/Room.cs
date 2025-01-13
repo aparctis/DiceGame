@@ -11,10 +11,11 @@ public class Room : MonoBehaviour
     [SerializeField] private Enemy enemy;
 
     private int currentRaundIndex;
-    private int maxRaundIndex;
 
     private float timeTick = 0.05f;
     private float delay = 0.5f;
+
+    private GameData data;
 
     [SerializeField] private RoomUIController roomUIController;
 
@@ -69,10 +70,10 @@ public class Room : MonoBehaviour
     {
         Debug.Log("START RAUND");
 
-        LoadData();
         StartCoroutine(RaundRutine());
     }
-    private void LoadData()
+
+    private IEnumerator RaundRutine()
     {
         Debug.Log("LoadData");
 
@@ -83,15 +84,17 @@ public class Room : MonoBehaviour
 
         player.SetPlayerData(data.playerData);
         enemy.SetEnemyData(data.enemyDatas[data.lastLevelIndex]);
-        maxRaundIndex = saveLoadSystem.levelsCount;
-    }
-    private IEnumerator RaundRutine()
-    {
-        Debug.Log("RaundRutine");
+
+
         bool isNextMove = false;
 
         //show players
         roomUIController.ShowPlayers(()=>isNextMove = true);
+        while (!isNextMove) yield return new WaitForSeconds(timeTick);
+
+        //show round info
+        isNextMove = false;
+        roomUIController.ShowRoundInfo(data.lastLevelIndex+1, data.enemyDatas[data.lastLevelIndex].name, () => isNextMove = true);
         while (!isNextMove) yield return new WaitForSeconds(timeTick);
 
 
@@ -145,20 +148,24 @@ public class Room : MonoBehaviour
     private void Win()
     {
         Debug.Log("WIN");
+        StopAllCoroutines();
+
         player.StopAll();
         enemy.StopAll();
 
-        StopAllCoroutines();
+        
         roomUIController.WinUI();
     }
 
     private void Lose()
     {
         Debug.Log("LOSE");
+        StopAllCoroutines();
+
         player.StopAll();
         enemy.StopAll();
 
-        StopAllCoroutines();
+        
         roomUIController.LoseUI();
     }
 

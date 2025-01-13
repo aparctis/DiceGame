@@ -14,6 +14,7 @@ public class Dice : MonoBehaviour
 
     [SerializeField] private bool isEnemyDice;
 
+    private Vector3 startPosition = Vector3.zero;
     private Vector3 waitPosition;
     private Vector3 boardPosition;
     private Vector3 middlePosition;
@@ -44,6 +45,10 @@ public class Dice : MonoBehaviour
     {
         waitPosition = newWaitposition;
         boardPosition = newBoardPosition;
+        middlePosition = newMiddlePosition;
+
+        //set start position if it was not setted before
+        if (startPosition.Equals(Vector3.zero)) startPosition = transform.position;
     }
 
     public void MoveToBoard(float moveTime, UnityAction onMoveDone)
@@ -69,10 +74,18 @@ public class Dice : MonoBehaviour
         diceMover.MoveDice(waitPosition, upperSide.corectAngle, moveTime, onMoveDone);
     }
 
+    public void HideDice()
+    {
+        
+        canClick = false;
+        DiceSetUI.instance?.Hide();
+        diceMover.StopMove();
+        diceMover.MoveDice(startPosition, true, 1, ()=> canClick = true);
+    }
+
 
     public void UseAction(UnityAction callBack)
     {
-        Debug.Log("Dice UseAction");
         DiceAction action = upperSide.action;
         switch (action.type)
         {
@@ -132,6 +145,9 @@ public class Dice : MonoBehaviour
     private void OnMouseDown()
     {
         Debug.Log("Click on dice");
-        DiceSetUI.instance?.ShowSet(actionSet);
+        if (canClick)
+        {
+            DiceSetUI.instance?.ShowSet(actionSet);
+        }
     }
 }

@@ -81,7 +81,6 @@ public class PlayerDiceController : MonoBehaviour
 
     public void UseActions(UnityAction callBack)
     {
-        Debug.Log("PlayerDiceController UseActions");
         StartCoroutine(UseAllActionsRutine(callBack));
     }
     private IEnumerator UseAllActionsRutine(UnityAction callBack)
@@ -94,7 +93,6 @@ public class PlayerDiceController : MonoBehaviour
         }
         yield return null;
         callBack?.Invoke();
-        Debug.Log("PlayerDiceController UseAllActionsRutine done");
 
     }
 
@@ -152,7 +150,6 @@ public class PlayerDiceController : MonoBehaviour
         }
         while (completed != allDices.Length) yield return new WaitForSeconds(tickTime);
 
-        Debug.Log("ROLL RUTINE Is Over");
         callBack.Invoke();
     }
 
@@ -168,5 +165,6 @@ public class PlayerDiceController : MonoBehaviour
     public void StopAll()
     {
         StopAllCoroutines();
+        foreach(Dice dice in allDices) dice.HideDice();
     }
 }

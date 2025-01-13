@@ -6,9 +6,7 @@ public class EnemyAvatarManager : MonoBehaviour
 {
     [SerializeField] private AvatarSet[] avatars;
 
-    public AvatarModel activeModel;
-
-    public AvatarModel ActivateAvatar(int index)
+    public AvatarModel getEnemyAvatar(int index)
     {
         foreach(AvatarSet avatar in avatars) avatar.Hide();
         if(avatars.Length<=index)
@@ -40,6 +38,7 @@ public class EnemyAvatarManager : MonoBehaviour
 
         public void Show()
         {
+            model.Alive();
             avatar.SetActive(true);
             camera.SetActive(true);
         }

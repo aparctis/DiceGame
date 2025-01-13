@@ -20,7 +20,7 @@ public class SaveLoadSystem : MonoBehaviour
     private void Awake()
     {
         savePath = Path.Combine(Application.persistentDataPath, "savedata.json");
-
+        LoadSaves();
     }
 
     private void LoadSaves()
@@ -33,6 +33,7 @@ public class SaveLoadSystem : MonoBehaviour
                 string jsonData = File.ReadAllText(savePath);
                 savedGameData = JsonUtility.FromJson<GameData>(jsonData);
                 isNewGame = false;
+                Debug.Log("Save data loaded");
             }
             catch (System.Exception e)
             {
@@ -112,6 +113,8 @@ public class SaveLoadSystem : MonoBehaviour
             Debug.LogError("Cannot save level: savedGameData is null!");
             return;
         }
+
+        if (level >= levelsCount) level = 0;
 
         savedGameData.lastLevelIndex = level;
         SaveData();

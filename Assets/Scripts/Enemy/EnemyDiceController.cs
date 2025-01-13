@@ -41,6 +41,13 @@ public class EnemyDiceController : MonoBehaviour
     {
         dice.UseAction(onDone);
     }
+
+    public void StopAll()
+    {
+        dice.HideDice();
+    }
+
+
     private void SetPositions()
     {
         Vector3 wait = positionConverter.GetWorldPosition(dicePlaceHolder, 2);

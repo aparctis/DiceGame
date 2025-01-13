@@ -4,6 +4,7 @@ using UnityEngine.Events;
 public class Player : PlayAble
 {
     [SerializeField] PlayerDiceController playerDiceController;
+    [SerializeField] private PlayerAvatarManager avatarManager;
 
     public int healthLeft => healthController.healthLeft;
     public int poisonLeft => healthController.poisonLeft;
@@ -14,6 +15,7 @@ public class Player : PlayAble
         healthController.SetHealth(data.currentHealth, data.maxHealth, data.currentPoison);
         armorController.SetArmor(0);
         playerDiceController.DecoreDice(data.hand_1, data.hand_2, data.armor, data.amulet, data.pet);
+        avatarModel = avatarManager.getPlayerAvatar();
     }
 
     public override void PrepereDice(UnityAction onDone)

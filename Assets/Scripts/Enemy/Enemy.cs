@@ -11,7 +11,7 @@ public class Enemy : PlayAble
     public void SetEnemyData(EnemyData enemyData)
     {
         //avatar
-        avatarModel = _enemyAvatarManager.ActivateAvatar(enemyData.avatarModelIndex);
+        avatarModel = _enemyAvatarManager.getEnemyAvatar(enemyData.avatarModelIndex);
 
         //health
         healthController.SetHealth(enemyData.currentHealth, enemyData.maxHealth, 0);
@@ -41,5 +41,10 @@ public class Enemy : PlayAble
     {
         Debug.Log("ENEMY DEATH");
         base.Death();
+    }
+
+    public override void StopAll()
+    {
+        _enemyDiceController.StopAll();
     }
 }

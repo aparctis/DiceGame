@@ -143,7 +143,7 @@ MonoBehaviour:
   _corectAngle: {x: 90, y: 0, z: 0}
   _actionHolder: {fileID: 3721847057571995400}
   _valueHolder: {fileID: 2000632506422309317}
-  _secondValueHolder: {fileID: 0}
+  _secondValueHolder: {fileID: 4714528558523376247}
 --- !u!1 &1654810386806278286
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,6 +305,9 @@ MonoBehaviour:
   - {fileID: 6736312219043960929}
   - {fileID: 1968176880223808599}
   - {fileID: 2281336049498337574}
+  ally: {fileID: 0}
+  oponent: {fileID: 0}
+  isEnemyDice: 0
 --- !u!114 &3470051798680656641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -320,8 +323,8 @@ MonoBehaviour:
   rb: {fileID: 8038570036754715428}
   collider: {fileID: 1374140136555641005}
   kinematicMoveEase: 10
-  throwForce: 5
-  torqueForce: 10
+  force_min: 2
+  force_max: 12
 --- !u!1 &1801643719339974350
 GameObject:
   m_ObjectHideFlags: 0
@@ -403,7 +406,7 @@ MonoBehaviour:
   _corectAngle: {x: 0, y: 90, z: 90}
   _actionHolder: {fileID: 4048724108791322573}
   _valueHolder: {fileID: 7302090519435628849}
-  _secondValueHolder: {fileID: 0}
+  _secondValueHolder: {fileID: 2456285415052709757}
 --- !u!1 &2784603227504482549
 GameObject:
   m_ObjectHideFlags: 0
@@ -485,7 +488,7 @@ MonoBehaviour:
   _corectAngle: {x: 0, y: 0, z: 180}
   _actionHolder: {fileID: 8875386553427782315}
   _valueHolder: {fileID: 1664881262656878187}
-  _secondValueHolder: {fileID: 0}
+  _secondValueHolder: {fileID: 4771427499692419727}
 --- !u!1 &3226197596102144526
 GameObject:
   m_ObjectHideFlags: 0
@@ -536,7 +539,7 @@ MonoBehaviour:
   _corectAngle: {x: 0, y: 0, z: 0}
   _actionHolder: {fileID: 436374809781561490}
   _valueHolder: {fileID: 6697922870274326592}
-  _secondValueHolder: {fileID: 0}
+  _secondValueHolder: {fileID: 947929118431616921}
 --- !u!1 &3584129145661587246
 GameObject:
   m_ObjectHideFlags: 0
@@ -897,7 +900,7 @@ MonoBehaviour:
   _corectAngle: {x: -90, y: 180, z: 0}
   _actionHolder: {fileID: 732478544604309678}
   _valueHolder: {fileID: 825692163957234764}
-  _secondValueHolder: {fileID: 0}
+  _secondValueHolder: {fileID: 843798430237453151}
 --- !u!1 &7028653726784408898
 GameObject:
   m_ObjectHideFlags: 0
@@ -979,7 +982,7 @@ MonoBehaviour:
   _corectAngle: {x: 0, y: -90, z: -90}
   _actionHolder: {fileID: 3017538745325279744}
   _valueHolder: {fileID: 5190309496961980813}
-  _secondValueHolder: {fileID: 0}
+  _secondValueHolder: {fileID: 9220762433800808742}
 --- !u!1 &8156432908058347609
 GameObject:
   m_ObjectHideFlags: 0

@@ -95,6 +95,11 @@ public class DiceMover : MonoBehaviour
             OnComplete(() => onMoveDone.Invoke());
     }
 
+    public void StopMove()
+    {
+        sequence?.Kill();
+    }
+
     private IEnumerator DiceVelocityCheck(UnityAction onDone)
     {
         yield return new WaitForSeconds(timeTick);

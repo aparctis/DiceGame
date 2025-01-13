@@ -8,6 +8,7 @@ public class RoomUIController : MonoBehaviour
 {
     [SerializeField] private RectTransform enemySide;
     [SerializeField] private RectTransform playerSide;
+    [SerializeField] private RoundInfoUI roundInfoUI;
 
     [SerializeField] private Ease ease = Ease.InOutCubic;
     [SerializeField] private float appearTime = 1.0f;
@@ -38,10 +39,15 @@ public class RoomUIController : MonoBehaviour
 
         levelLoader = _levelLoader;
         saveLoadSystem = _saveLoadSystem;
+    }
 
+    private void Start()
+    {
         Canvas.ForceUpdateCanvases();
         InitPositions();
         FastHide();
+
+        roundInfoUI.IniitializePositions();
     }
 
     private void InitPositions()
@@ -63,6 +69,11 @@ public class RoomUIController : MonoBehaviour
         sequence.Append(enemySide.DOAnchorPos(startEnemyPosition, appearTime).SetEase(ease)).
             Join(playerSide.DOAnchorPos(startPlayerPosition, appearTime).SetEase(ease)).
             OnComplete(()=>callBack?.Invoke());
+    }
+
+    public void ShowRoundInfo(int round, string enemyName, UnityAction callBack)
+    {
+        roundInfoUI.ShowRoundInfo(round, enemyName, callBack);
     }
 
     private void HidePlayers(UnityAction callBack)

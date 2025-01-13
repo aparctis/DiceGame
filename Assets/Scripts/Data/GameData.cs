@@ -32,6 +32,9 @@ public class PlayerData
 [System.Serializable]
 public class EnemyData
 {
+    //name
+    public string name;
+
     //Health
     public int maxHealth;
     public int currentHealth;
@@ -44,6 +47,8 @@ public class EnemyData
 
     //Dices
     public DiceActionSet diceSet;
+
+
 }
 
 

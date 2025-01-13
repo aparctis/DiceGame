@@ -8,6 +8,12 @@ public class AvatarModel : MonoBehaviour
 
     public void Death()
     {
-        animator.SetBool("isDead", true);
+        animator?.SetBool("isDead", true);
+    }
+
+    public void Alive()
+    {
+        animator?.SetBool("isDead", false);
+
     }
 }

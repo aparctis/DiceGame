@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerData:
     maxHealth: 20
-    currentHealth: 17
+    currentHealth: 20
     defoultArmor: 0
     currentPoison: 0
     hand_1:
@@ -118,7 +118,8 @@ MonoBehaviour:
         _value: 1
         _secondValue: 1
   enemyData:
-  - maxHealth: 7
+  - name: wolf
+    maxHealth: 7
     currentHealth: 7
     currentArmor: 0
     avatarModelIndex: 0
@@ -142,7 +143,8 @@ MonoBehaviour:
       - _type: 0
         _value: 1
         _secondValue: 0
-  - maxHealth: 10
+  - name: black wolf
+    maxHealth: 10
     currentHealth: 10
     currentArmor: 0
     avatarModelIndex: 1
@@ -166,7 +168,8 @@ MonoBehaviour:
       - _type: 0
         _value: 2
         _secondValue: 0
-  - maxHealth: 15
+  - name: bear-boss
+    maxHealth: 15
     currentHealth: 15
     currentArmor: 0
     avatarModelIndex: 2
